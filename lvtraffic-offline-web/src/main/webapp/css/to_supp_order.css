@@ -1,0 +1,180 @@
+input,textarea{border:1px solid #e4e4e4;}
+.address input{border:1px solid #e4e4e4;}
+.error {color:Red;}
+input{height:20px; padding:2px;}
+select{width:94%;}
+
+html{ font-family:"microsoft yahei", "Arial"; font-size: 12px;}
+body{padding-bottom: 200px;}
+li{ list-style: none;}
+input[type='radio'],input[type='checkbox']{ vertical-align: top;}
+.container a{ text-decoration: none; color: #21a8dc; }
+.container{ min-width: 1000px; margin: 0 auto;  border: 0px solid red;}
+.top .nav{padding: 0 10px;}
+.top .msg{margin-top:7px;background: #f6f6f6; width: 97%;}
+.top .msg .title{ background: #009dda; padding: 0 10px; height: 30px; line-height: 30px; color: #FFF; }
+.top .msg table{background: #f6f6f6; width: 100%; border: 1px solid #e4e4e4;}
+.top .msg table tr{height: 50px;}
+.top .msg table tr td{ padding: 0 12px; }
+.top .msg table tr td i{ font-style: normal; margin: 0 3px; color: red;}
+.top .msg table tr td img{ width: 18px; vertical-align: bottom; margin-right: -2px;}
+.top .msg table tr td:first-child div{padding-left: 20px;}
+.top .msg table tr td a{ text-decoration: underline;}
+.top .msg table tr td number{ text-decoration: underline;}
+.top .msg table tr td .div-2{margin:0;padding:0;width:160px;}
+.top .msg table tr td .div-1{color: #999;}
+.top .msg table tr td .name{color: #999;}
+.top .msg table tr td.td-6{color: #ff8500;}
+.price{ margin-top: 50px;}
+.price .title{ padding: 0 10px;font-weight: bold;}
+.price table{ text-align: center; margin-top: 7px; width: 97%; background: #fff;color: #333333;}
+.price table tr{ height: 33px;}
+.price table tr:first-child{ background: #999;color: #fff; height: 30px;}
+.price table tr td{ width: 11%;border-right: 1px solid #e4e4e4;border-bottom: 1px solid #e4e4e4;}
+.price table tr:first-child td{ width: 8%; border-right: 1px solid #fff;}
+.price table tr td.last-td{ border-right: 0;width: 12%;}
+.price table tr.tr-3{background: #f3f9ff;}
+.price table tr.tr-3 td{ text-align: left; color: #000; padding-left: 3px;border-bottom: 1px solid #e4e4e4;}
+.price table tr.last-td td{ border-bottom: 0;}
+.withdraw{ background: #f3f9ff;width: 97%; margin-top: 10px; text-align: center; border: 1px solid #d6e5f1;}
+.withdraw tr td{border-right: 1px solid #d6e5f1;border-bottom: 1px solid #d6e5f1;height: 33px;}
+.withdraw tr:first-child td:first-child{ width: 2%; padding: 15px 12px; height: auto;border-bottom: 0;}
+.withdraw tr.first-tr td.td-2{ width: 10%;}
+.withdraw tr td.last-td{ text-align: left; border-right: 0; padding-left: 5px;}
+.withdraw tr.last-tr td{border-bottom: 0; }
+.withdraw tr.last-tr td:first-child{color: red; }
+.passenger table tr td{ width: 11%;border-right: 1px solid #e4e4e4;border-bottom: 1px solid #e4e4e4;}
+.passenger,.order,.distribution{ margin-top: 20px; width: 97%;}
+.passenger .title,.order .title,.distribution .title{background: #009dda; height:30px; color:#fff; line-height: 30px; padding: 0 10px; }
+.passenger .msg,.order .msg,.distribution .msg{ border: 1px solid #e4e4e4;  padding: 10px 20px 20px 20px; }
+.passenger .msg .name,.passenger .insurance{border: 0px solid red; padding: 0; margin: 0; border-bottom:1px dashed #e4e4e4; height: 25px;}
+.passenger .msg .name li,.passenger .insurance li{float: left; margin-right: 30px;}
+.passenger .msg .name li:first-child,.passenger .insurance li:first-child{ margin-right: 0;}
+.passenger .msg .name li.li-2{ color: #ff8500;}
+.passenger .msg .name li img{ width: 25px; vertical-align: top; margin-top: 0px;}
+.passenger .msg .name li input,.passenger .insurance li input{ vertical-align: top;}
+.passenger .msg .name li a{ text-decoration: underline;}
+.passenger .msg .name li:last-child{ margin-left: -16px;}
+.passenger .msg .div-list{ border: 1px solid #e4e4e4; text-align: center; background: #f6f6f6; padding: 0 5px 15px 5px;}
+.passenger .msg .list{ text-align: center; }
+.passenger .msg .list tr{height: 30px;}
+.passenger .msg .add{border: 1px dashed #009dda; margin: 2px 15px 0 15px; height: 30px; line-height: 30px; text-align: left; padding-left: 35px; color: #009dda;}
+.passenger .msg .add img{vertical-align: top; margin-top: 7px;}
+.order .msg{background: #f6f6f6; padding: 20px;}
+.order .msg font{ font-size: 13px;}
+.order>.msg>div>span{ float:left; display:block; width: 33%;}
+.order>.msg>div>span>input{ width: 50%;}
+textarea{ vertical-align: top; width: 93%;}
+/*.detail .tab-detail tr.tr-title .last-tr{ display: none;}*/
+.detail .tab-detail .a-detail{ cursor: pointer;}
+.tab{margin: 10px 0; }
+.tab .tab-cot{ border: 1px solid #009dda; padding: 10px; width: 95.5%;}
+.tab .tab-cot .withdraw{ width: 100%; margin-top: 0;}
+.tab .tab-title button{ border: 0; min-width: 8%; height: 30px; line-height: 30px; color: #fff; margin-right: -5px;}
+.tab .tab-title button strong{ font-weight: normal; margin-left: 3px;}
+.tab .tab-title button span{ border: 1px solid #fff; padding:0 1px; color: #fff;margin-left: 6px; font-size: 10px; vertical-align: top;}
+.tab .tab-title button.btn1{background: #6ac9ed;}
+.tab .tab-title button.btn1 strong{ color: #0099ff;}
+.tab .tab-title button.btn2{background: #66f29a;}
+.tab .tab-title button.btn2 strong{ color: #00cc00;}
+.tab .tab-title button.btn3{background: #ffd56c;}
+.tab .tab-title button.btn3 strong{ color: #e4a41c;}
+
+.florder_price {
+    border: 1px solid #f0e9d6;
+    background-color: #fffaed;
+    padding: 10px 20px;
+    margin-top: 10px;
+}
+ul li {
+    list-style: none;
+}
+.florder_price .sum {
+    font-size: 14px;
+    font-weight: bold;
+    background: none;
+    line-height: 32px;
+    color: #333;
+}
+.florder_price .row {
+    color: #666;
+    padding-bottom: 0;
+}
+.toc li .cols {
+    background-color: #fffaed;
+    padding-right: 5px;
+}
+.row .cols {
+    float: left;
+}
+.toc li .cols.right {
+    padding-left: 10px;
+    padding-right: 0;
+}
+.florder_price .sum .sumPrice {
+    font-size: 28px;
+    font-family: Tahoma, Arial, 'Hiragino Sans GB', \5b8b\4f53, sans-serif;
+    font-weight: normal;
+}
+.row .cols.right {
+    float: right;
+}
+.sumPrice {
+    color: #ff6600;
+}
+.florder_price .order_detail {
+    background: none;
+    text-align: right;
+}
+.florder_price .row {
+    color: #666;
+    padding-bottom: 0;
+}
+.florder_price .headline {
+    font-weight: bold;
+    color: #333;
+}
+.toc li .cols {
+    background-color: #fffaed;
+    padding-right: 5px;
+}
+.row {
+    padding: 5px;
+}
+.row .cols {
+    float: left;
+    margin-bottom: 3px;
+}
+.toc li .cols.right {
+    padding-left: 10px;
+    padding-right: 0;
+}
+.row .cols.right {
+    float: right;
+}
+.row:before, .row:after {
+    content: " ";
+    display: table;
+}
+.row:after {
+    clear: both;
+}
+.florder_price ul { padding-left: 5px; margin: 0;}
+
+.bookingBtn:hover {
+    background-color: #ff8400;
+    border-color: #f76300;
+}
+
+.bookingBtn {
+    height: 100%;
+    color: #fff;
+    padding: 10px 40px 9px;
+    font-family: Arial, Tahoma, 'Hiragino Sans GB', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    border-color: #d58512;
+    background-color: #ed9c28;
+    cursor: pointer;
+    border-radius: 3px;
+}
