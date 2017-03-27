@@ -1,4 +1,4 @@
-package com.lvmama.comm.pet.po.user;
+package com.play.comm.pet.po.user;
 
 import java.io.Serializable;
 import java.util.Date;

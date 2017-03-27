@@ -1,4 +1,4 @@
-package com.lvmama.lvtraffic.offline.web.saleControl.dto;
+package com.play.lazy.offline.web.saleControl.dto;
 
 public enum ProductType{
 	

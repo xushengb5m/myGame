@@ -1,4 +1,4 @@
-package com.lvmama.comm.vst;
+package com.play.comm.vst;
 
 import java.io.Serializable;
 import java.util.Date;

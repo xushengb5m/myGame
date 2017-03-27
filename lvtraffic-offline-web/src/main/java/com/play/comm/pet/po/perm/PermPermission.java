@@ -1,10 +1,10 @@
-package com.lvmama.comm.pet.po.perm;
+package com.play.comm.pet.po.perm;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lvmama.comm.pet.po.perm.PermPermission;
+import com.play.comm.pet.po.perm.PermPermission;
 
 
 public class PermPermission implements Serializable {

@@ -1,4 +1,4 @@
-package com.lvmama.lvtraffic.offline.web.controller.base;
+package com.play.lazy.offline.web.controller.base;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +10,7 @@ public class IndexController {
 	@RequestMapping("index")
 	public String toIndex(){
 		
-		return "index";
+		return "user_login";
 	}
+	
 }
