@@ -20,7 +20,7 @@ function checkUserLogin(){
 			return;
 		}
 	   $.ajax({
-			url : "${request.contextPath}/checkUserLogin",
+			url : "${request.contextPath}/cpsx/checkUserLogin",
 			cache : false,
 			async : false,
 			data : {
@@ -33,7 +33,7 @@ function checkUserLogin(){
 			 if(data!="" && data=="succees"){
 			    	$("#userName").val(loginName);
 		            $("#passwords").val(password);
-		            document.form1.action = "searchUserLogin";
+		            document.form1.action = "cpsx/index";
                     document.form1.submit(); 
 			 }else{
 			     alert("登录失败,请重新登录！");

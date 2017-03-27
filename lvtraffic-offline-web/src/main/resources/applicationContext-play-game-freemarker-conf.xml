@@ -39,6 +39,7 @@
 				<prop key="datetime_format">${datetime_format}</prop>
 				<prop key="classic_compatible">${classic_compatible}</prop>
 				<prop key="template_exception_handler">${template_exception_handler}</prop>
+				<!-- <prop key="auto_import">/common/page.ftl as p</prop> <prop key="auto_include">/common/page.ftl</prop> -->
 			</props>
 		</property>
 	</bean>

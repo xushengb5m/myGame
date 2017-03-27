@@ -1,4 +1,4 @@
-package com.play.lazy.offline.web.controller.base;
+package com.play.lazy.offline.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
