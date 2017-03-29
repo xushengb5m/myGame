@@ -67,9 +67,9 @@ top.location = "${request.contextPath}/userLogout";
 			</ul>
 		<#else>
 		<ul id="aside_list" class="aside_list ul_oper_list">
-			<li class="oper_item"><a target="iframeMain" ><span class="icon-tag_2"></span>活动管理</a>
+			<li class="oper_item"><a target="iframeMain"><span class="icon-tag_1"></span>活动管理</a>
                 <ul class="ul_oper_list">
-                	<li class="oper_item"><a target="iframeMain"  href="${request.contextPath}/promotionMain/toPromotionMainList"><span class="icon-tag_1"></span>活动列表</a></li>
+                	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/promotionMain/toPromotionMainList"><span class="icon-tag_2"></span>活动列表</a></li>
                     <li class="oper_item"><a target="iframeMain" href="${request.contextPath}/promotion/toPromotionList"><span class="icon-tag_1"></span>子活动列表</a></li>
                     <li class="oper_item"><a target="iframeMain" href="${request.contextPath}/promotionStatis/toCountList"><span class="icon-tag_1"></span>活动统计</a></li>
                 </ul>
