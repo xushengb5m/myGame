@@ -1,4 +1,4 @@
-package com.play.lazy.offline.web.constant;
+package com.lazy.offline.web.constant;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package com.play.lazy.offline.web.utils;
+package com.lazy.offline.web.utils;
 
 import java.io.UnsupportedEncodingException;
 
@@ -30,10 +30,6 @@ public class CPCDigestUtils {
 		} else {
 			return "";
 		}
-	}
-
-	public static void main(String[] args) {
-		System.out.println(getMD5Hex(getMD5Hex(getMD5Hex(getMD5Hex("111111") + getMD5Hex("ali@b5m.com"))) + getMD5Hex("ali@b5m.com")));
 	}
 
 	/**

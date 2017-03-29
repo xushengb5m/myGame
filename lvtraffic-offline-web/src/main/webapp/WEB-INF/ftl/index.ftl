@@ -27,14 +27,14 @@
 <script type="text/javascript">
 //重新登录系统
 function registerLogin(){
- top.location = "${request.contextPath}/userLogin";
+ top.location = "${request.contextPath}/userLogout";
 }
 //重新登录系统
 function exitLogin(){
 if(confirm('确定要退出系统？')){
 window.close();
 window.parent.close();
-top.location = "${request.contextPath}/userLogin";
+top.location = "${request.contextPath}/userLogout";
   }
 }
 

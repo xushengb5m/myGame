@@ -13,32 +13,32 @@
 <script type="text/javascript">
 //登录
 function checkUserLogin(){
-	 var loginName=$.trim($("#loginName").val());
+	 var userName=$.trim($("#loginName").val());
 	 var password=$.trim($("#password").val());
 		if(loginName=='' || password==''){
 			alert("请输入登录用户名和密码");
 			return;
 		}
 	   $.ajax({
-			url : "${request.contextPath}/cpsx/checkUserLogin",
+			url : "${request.contextPath}/userLogin",
 			cache : false,
 			async : false,
 			data : {
-				"loginName" : loginName,
+				"userName" : userName,
 				"password" : password
 				},
 			type : "POST",
 			datatype : "json",
 			success: function(data){
-			 if(data!="" && data=="succees"){
-			    	$("#userName").val(loginName);
-		            $("#passwords").val(password);
-		            document.form1.action = "cpsx/index";
-                    document.form1.submit(); 
-			 }else{
-			     alert("登录失败,请重新登录！");
-			     window.location.reload(); 
-			 }
+				 if(data!="" && data=="success"){
+				    	$("#userName").val(loginName);
+			            $("#passwords").val(password);
+			            document.form1.action = "${request.contextPath}/searchUserLogin";
+	                    document.form1.submit(); 
+				 }else{
+				     alert("登录失败,请重新登录！");
+				     window.location.reload(); 
+				 }
    		  }
 	    });
 	}

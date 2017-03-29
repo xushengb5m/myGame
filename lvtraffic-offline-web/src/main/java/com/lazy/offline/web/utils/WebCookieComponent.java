@@ -1,4 +1,4 @@
-package com.play.lazy.offline.web.utils;
+package com.lazy.offline.web.utils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package com.play.lazy.offline.web.utils;
+package com.lazy.offline.web.utils;
 
 /**
  * CSV文件信息枚举

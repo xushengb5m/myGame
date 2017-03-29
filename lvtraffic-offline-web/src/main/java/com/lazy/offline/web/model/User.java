@@ -1,4 +1,4 @@
-package com.play.lazy.offline.web.model;
+package com.lazy.offline.web.model;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -54,10 +54,8 @@ public class User implements Serializable{
 		if (StringUtils.isNotBlank(password) && !password.equals("******")) {
 			try {
 				return DigestUtils
-						.md5Hex(DigestUtils.md5Hex(password
-								.getBytes(CharEncoding.UTF_8))
-								+ DigestUtils.md5Hex(email
-										.getBytes(CharEncoding.UTF_8)));
+						.md5Hex(DigestUtils.md5Hex(password.getBytes(CharEncoding.UTF_8))
+								+DigestUtils.md5Hex(userName.getBytes(CharEncoding.UTF_8)));
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}

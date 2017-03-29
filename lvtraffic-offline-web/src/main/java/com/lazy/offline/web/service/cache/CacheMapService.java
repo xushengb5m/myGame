@@ -1,4 +1,4 @@
-package com.play.lazy.offline.web.service.cache;
+package com.lazy.offline.web.service.cache;
 
 import java.util.Map;
 
