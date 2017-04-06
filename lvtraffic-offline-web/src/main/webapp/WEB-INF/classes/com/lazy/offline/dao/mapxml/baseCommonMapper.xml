@@ -5,10 +5,10 @@
 <mapper namespace="baseMapper">
 	
 	<select id="selectOneUser" parameterType="com.lazy.offline.model.User" resultType="com.lazy.offline.model.User">
-				select u.id,u.email,u.password,u.create_time,u.user_name,r.remark,r.role,r.id as roleId 
+				SELECT u.id,u.email,u.password,u.create_time,u.user_name,r.remark,r.role,r.id as roleId 
 				FROM cpsx_sys_dim_user u
 				LEFT JOIN cpsx_sys_map_user_role ur on u.id=ur.user_id
 				LEFT JOIN	cpsx_sys_dim_role r on r.id = ur.role_id
-				where u.user_name=#{userName}
+				WHERE u.user_name=#{userName}
 	</select>
 </mapper>

@@ -37,7 +37,6 @@ window.parent.close();
 top.location = "${request.contextPath}/userLogout";
   }
 }
-
 </script>
 <body>
 <!-- 顶部导航\\ -->
@@ -98,13 +97,12 @@ top.location = "${request.contextPath}/userLogout";
                     
                 </ul>
             </li>
-            <li class="oper_item"><a target="iframeMain" ><span class="icon-tag_2"></span>客户管理</a>
+            <li class="oper_item"><a target="iframeMain" ><span class="icon-tag_2"></span>系统管理</a>
             <ul class="ul_oper_list">
-            	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/feedback/toFeedBackListPage"><span class="icon-tag_1"></span>客户反馈</a></li>
-            </ul>
-            <li class="oper_item"><a target="iframeMain" ><span class="icon-tag_2"></span>短信服务</a>
-            <ul class="ul_oper_list">
-            	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/ccs/sms/toSmsLogList"><span class="icon-tag_1"></span>短信</a></li>
+            	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/system/toResourceList"><span class="icon-tag_1"></span>资源管理</a></li>
+            	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/system/toUserListPage"><span class="icon-tag_1"></span>用户管理</a></li>
+            	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/system/toRoleListPage"><span class="icon-tag_1"></span>角色管理</a></li>
+            	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/system/toAccessListPage"><span class="icon-tag_1"></span>权限管理</a></li>
             </ul>
         </li>
 		</ul>
