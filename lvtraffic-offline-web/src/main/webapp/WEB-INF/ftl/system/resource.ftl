@@ -6,13 +6,9 @@
     <link rel="stylesheet" type="text/css" href="${request.contextPath}/css/icon.css">
     <link rel="stylesheet" type="text/css" href="${request.contextPath}/css/easyui.css">
     <link rel="stylesheet" type="text/css" href="${request.contextPath}/css/demo.css">
-	<script src="${request.contextPath}/js/resources/jqGrid/js/jquery-1.7.2.min.js"> </script>
-	<script src="${request.contextPath}/js/resources/jquery-ui-1.8.10.custom.min.js"></script>
-	<script src="${request.contextPath}/js/resources/jqGrid/src/i18n/grid.locale-cn.js"></script>
-	<script src="${request.contextPath}/js/resources/jqGrid/js/jquery.jqGrid.src.js"></script>
 	
-	<script src="${request.contextPath}/js/easyui/jquery.easyui.min.js"></script>
 	<script src="${request.contextPath}/js/easyui/jquery.min.js"></script>
+	<script src="${request.contextPath}/js/easyui/jquery.easyui.min.js"></script>
     
     <script type="text/javascript">
     
@@ -21,11 +17,21 @@
 	    });    
 		
 		function initTree() {
-			$("#menuTree").data({
-				url : "${request.contextPath}/system/loadResourceData",
+			$.ajax({
+    			url : "${request.contextPath}/system/loadResourceData",
+    			dataType:"json",
+    			type : "GET",
+    			success : function(data) {
+    				console.info(data);
+    				$("#menuTree").tree({
+    					data : data,
+    					animate:true,
+    					lines:true
+    				});
+    			} 
+    		})
+		}
 			
-			});
-		} 
 		
   </script>
     
