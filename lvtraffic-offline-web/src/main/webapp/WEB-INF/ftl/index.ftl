@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>公共服务管理系统</title>
+<title>XX管理系统</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link rel="stylesheet" href="${request.contextPath}/css/ui-common.css">

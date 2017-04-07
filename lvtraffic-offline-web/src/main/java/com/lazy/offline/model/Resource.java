@@ -9,13 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  * 资源类,同时充当菜单
  * @author ldb,johnson
  *
  */
-public class Resource implements Serializable {
+public class Resource extends EasyUiTreeNode<Resource> implements Serializable {
 	
 	private static final long serialVersionUID = -9001779575117862445L;
 	private int id;

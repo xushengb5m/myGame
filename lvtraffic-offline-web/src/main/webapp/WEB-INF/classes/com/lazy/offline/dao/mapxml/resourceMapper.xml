@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="resourceMapper">
+	
+	<select id="selectResources" parameterType="com.lazy.offline.model.Resource" resultType="com.lazy.offline.model.Resource">
+				SELECT distinct r.id,r.url as resourceUrl,r.name as resourceName,r.eng_name AS engName,r.is_menu AS ismenu,r.posorder,
+					   r.parent_id as topid,r.cls_name as clsname,r.create_time 
+				FROM cpsx_sys_dim_resource r 
+				LEFT JOIN cpsx_sys_map_role_resource role 
+				ON r.id=role.resource_id
+				ORDER BY r.posorder ASC
+	</select>
+</mapper>
