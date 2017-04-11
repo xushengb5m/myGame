@@ -2,16 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ORACLE">
-  <sql id="ORACLE.paginationStart">
+<mapper namespace="MYSQL">
+  <sql id="MYSQL.pagination">
     <![CDATA[
-   select * from (select row_.*, rownum rownum_ from (
-  ]]>
-  </sql>
-
-  <sql id="ORACLE.paginationEnd">
-    <![CDATA[
-   )row_  ) where rownum_ >= #{startRow} and  rownum_ <= #{endRow}
+     limit ${startRow-1} ,${endRow-(startRow-1)}
   ]]>
   </sql>
 </mapper>

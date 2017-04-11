@@ -9,8 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.lazy.offline.model.User;
+import com.lazy.offline.model.base.BaseQueryDto;
 import com.lazy.offline.model.base.BaseResultDto;
+import com.lazy.offline.model.base.Pagination;
 import com.lazy.offline.service.IBaseCommonService;
 
 @Controller
@@ -29,8 +30,8 @@ public class SysUserController {
 	@RequestMapping(value = "/loadSysUserData")
 	@ResponseBody
 	private BaseResultDto<Object> loadResourceData(HttpServletRequest request,HttpServletResponse response) {
-		
-		List<Object> userList= baseCommonService.selectListAll("systemUserMapper.selectSysUserListPage");
+		BaseQueryDto<Object> baseQuery = new BaseQueryDto<Object>(new Pagination());
+		List<Object> userList= baseCommonService.selectList("systemUserMapper.selectSysUserListPage",baseQuery);
 		BaseResultDto<Object> baseResult = new BaseResultDto<Object>(userList);
 		
 		return baseResult;
