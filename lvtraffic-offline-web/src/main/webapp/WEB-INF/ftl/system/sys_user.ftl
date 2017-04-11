@@ -20,6 +20,28 @@
 	    $(function (){
 			initGrid();
 		});
+	    
+		 // 对Date的扩展，将 Date 转化为指定格式的String
+		 // 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符， 
+		 // 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字) 
+		 // 例子： 
+		 // (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423 
+		 // (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18 
+		 Date.prototype.Format = function (fmt) { //author: meizz 
+		     var o = {
+		         "M+": this.getMonth() + 1, //月份 
+		         "d+": this.getDate(), //日 
+		         "h+": this.getHours(), //小时 
+		         "m+": this.getMinutes(), //分 
+		         "s+": this.getSeconds(), //秒 
+		         "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+		         "S": this.getMilliseconds() //毫秒 
+		     };
+		     if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+		     for (var k in o)
+		     if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+		     return fmt;
+		 }
 			
 		//清空查询信息   
 		function reset() { 
@@ -128,41 +150,21 @@
                     for(var i=0; i<ids.length; i++){
                     	var id=ids[i];
                     	var rowData = $('#sysUserList').jqGrid('getRowData',id);
-                    	var insuranceType = rowData.insuranceType;
-						var insStatus = rowData.insStatus;
-                        var isdefault = rowData.defaultProductStr;
-                        //TASK#36006
-                    	var productTypes = rowData.productTypes;
+						var insStatus = rowData.status;
+						console.info(insStatus)
                          if(insStatus=='有效')
                         {
-							operateClick= '<a href="javascript:;" style="color:blue" onclick="operateLog('+id+')" >日志</a> <a href="javascript:;" style="color:blue" onclick="update('+id+')" >修改</a> <a href="#" style="color:blue" onclick="deleteInsurance('+id+')" >设为无效</a> ';
-							if(isdefault=='默认'){
-								operateClick+='<a href="javascript:;" style="color:blue" onclick="updateInsuranceNoDefaultRule('+"'"+id+"' ,'"+ insuranceType+"' ,'"+ productTypes +"'"+')" >不默认</a>';
-							}else{
-								operateClick+='<a href="javascript:;" style="color:blue" onclick="updateInsuranceDefaultRule('+"'"+id+"' ,'"+ insuranceType+"' ,'"+ productTypes +"'"+')" >默认</a>';
-							} 
-							operateClick+=' <a href="javascript:;" onclick="saleControle('+id+')" style="color:blue">销售调控</a>';
+							operateClick= '<a href="javascript:;" style="color:blue" onclick="update('+id+')" >修改</a> <a href="#" style="color:blue" onclick="deleteInsurance('+id+')" >设为无效</a> ';
 						}
 						else
 						{	
-							operateClick= '<a href="javascript:;" style="color:blue" onclick="operateLog('+id+')" >日志</a> <a href="javascript:;" style="color:blue" onclick="update('+id+')" >修改</a> <a href="#" style="color:blue" onclick="effectInsurance('+id+')" >设为有效</a> ';
-							if(isdefault=='默认'){
-								operateClick+='<a href="javascript:;" style="color:blue" onclick="updateInsuranceNoDefaultRule('+"'"+id+"' ,'"+ insuranceType+"' ,'"+ productTypes +"'"+')" >不默认</a>';
-							}else{
-								operateClick+='<a href="javascript:;" style="color:blue" onclick="updateInsuranceDefaultRule('+"'"+id+"' ,'"+ insuranceType+"' ,'"+ productTypes +"'"+')" >默认</a>';
-							} 
-							operateClick+=' <a href="javascript:;" onclick="saleControle('+id+')" style="color:blue">销售调控</a>';
+							operateClick= '<a href="javascript:;" style="color:blue" onclick="update('+id+')" >修改</a> <a href="#" style="color:blue" onclick="effectInsurance('+id+')" >设为有效</a> ';
 						}
                         jQuery("#sysUserList").jqGrid('setRowData', id , {operate:operateClick});
                     }
                 }
 			});
 		} 
-		
-		//查看操作日志
-		function operateLog(id) {
-		   	window.open("${request.contextPath}/toOpLogListPage/"+id+"/INSURANCE_PRO");
-		}
 		
 		//修改
 		function update(id) {
