@@ -26,8 +26,8 @@
 			document.getElementById("myForm").reset()
 		}    
 		
-		function addInsurance() {  
-				window.open("${request.contextPath}/insurance/toAddInsurancePage"); 
+		function addSysUser() {  
+				window.open("${request.contextPath}/system/toAddInsurancePage"); 
 		}   
 
 		//打开销售调控
@@ -38,39 +38,28 @@
 		//查询列表信息   
 		function query() { 
        		
-			$("#insuranceInfoList").jqGrid('setGridParam', {
-				url : "queryinsuranceInfoList",
+			$("#sysUserList").jqGrid('setGridParam', {
+				url : "${request.contextPath}/system/loadSysUserData",
 				datatype : "json",
 				mtype : "POST",
-				postData : getInsuranceInfoParams()
+				postData : getQueryParams()
 			}).trigger("reloadGrid");
 		}
 		
-		function getInsuranceInfoParams() {
-			var insuranceName = $('#insuranceName').find("option:selected").text();
-			if($('#insuranceName').find("option:selected").text()=='全部'){
-				insuranceName = '';
-			}
+		function getQueryParams() {
 			return {
-				'insuranceClass.code' : $('#insuranceCode').val(),
-				'insuranceClass.name' : insuranceName,
-				'supp.id' : $('#suppName').val(),
-				'startUpdateTime' : $("#startUpdateTime").val(),
-				'defaultRule' : $("#defaultRule").val(), 
-				'endUpdateTime' : $("#endUpdateTime").val(),
-				'status' : $("#status").val(),
-				'productTypes' : $("#productType").val(),
-				'insuranceType' : $("#insuranceType").val(),
-				'search':false
+				'userName' : $('#userName').val(),
+				'email' : $('#email').val(),
+				'status' : $("#status").val()
 			}
 		}
 		
 		function initGrid() {
-			$("#insuranceInfoList").jqGrid({
+			$("#sysUserList").jqGrid({
 				url : "${request.contextPath}/system/loadSysUserData",
 				datatype : "json",
 				mtype : "POST",
-				colNames : ['用户名','邮箱'],
+				colNames : ['用户名','邮箱','真实姓名','用户类型','账户类型','创建时间','操作'],
 				colModel : [ {
 					name : 'userName',
 					index : 'userName',
@@ -80,6 +69,31 @@
 					name : 'email',
 						width :100,
 					index : 'email',
+					align : 'center'
+				}, {
+					name : 'realName',
+					width :100,
+					index : 'realName',
+					align : 'center'
+				}, {
+					name : 'userType',
+					width :100,
+					index : 'userType',
+					align : 'center'
+				}, {
+					name : 'accountType',
+					width :100,
+					index : 'accountType',
+					align : 'center'
+				},{
+					name : 'createTime',
+					width :100,
+					index : 'createTime',
+					align : 'center'
+				},{
+					name : 'operate',
+					width :100,
+					index : 'operate',
 					align : 'center'
 				}],
 				rowNum: 10,            //每页显示记录数
@@ -104,16 +118,16 @@
 				repeatitems : false             // 如果设为false，则jqGrid在解析json时，会根据name来搜索对应的数据元素（即可以json中元素可以不按顺序）；而所使用的name是来自于colModel中的name设定。   
 			    },
 				onPaging : function(pgButton) {
-					$("#insuranceInfoList").jqGrid('setGridParam', {
-						postData : getInsuranceInfoParams ()
+					$("#sysUserList").jqGrid('setGridParam', {
+						postData : getQueryParams ()
 					});
 				},
-				postData : getInsuranceInfoParams (),
+				postData : getQueryParams (),
 				gridComplete:function(){  //在此事件中循环为每一行添加日志、废保和查看链接
-                    var ids=jQuery("#insuranceInfoList").jqGrid('getDataIDs');
+                    var ids=jQuery("#sysUserList").jqGrid('getDataIDs');
                     for(var i=0; i<ids.length; i++){
                     	var id=ids[i];
-                    	var rowData = $('#insuranceInfoList').jqGrid('getRowData',id);
+                    	var rowData = $('#sysUserList').jqGrid('getRowData',id);
                     	var insuranceType = rowData.insuranceType;
 						var insStatus = rowData.insStatus;
                         var isdefault = rowData.defaultProductStr;
@@ -139,7 +153,7 @@
 							} 
 							operateClick+=' <a href="javascript:;" onclick="saleControle('+id+')" style="color:blue">销售调控</a>';
 						}
-                        jQuery("#insuranceInfoList").jqGrid('setRowData', id , {operate:operateClick});
+                        jQuery("#sysUserList").jqGrid('setRowData', id , {operate:operateClick});
                     }
                 }
 			});
@@ -285,49 +299,14 @@
 		 <div class="product message">
 			<div class="main">
 				<div class="part">
-					<span>供应商：</span>
-					<select name="suppName" id="suppName" onblur="getInsurance()">
-					<option value="">全部</option>
-						<#list supps as supp>
-							<option value="${(supp.id)!''}">${(supp.name)!''}</option>
-						</#list>
-					</select>
-					<span style="margin-left:10px;">适用产品类型：</span>
-					<select name="productType" id="productType">
-						<option value="all">全部</option>
-						<#list productEnum as val>
-							<option value="${val}">${val.cnName}</option>
-						</#list>
-					</select>
-					<span>产品编码：</span><input type="text" name="insuranceCode" id="insuranceCode">
-					<span>险种名称：</span><select name="insuranceName" id="insuranceName"></select>
-				</div>
-				<div class="part">
-					<span style="margin-left:10px;">保险类型：</span>
-						<select name="insuranceType" id="insuranceType">
-							<option value="">全部</option>
-							<#list insuranceTypeEnum as val>
-					        	<option value="${val}">${val.cnName}</option>
-					        </#list> 
-				        </select>
-					<span>产品状态：</span>
+					<span>用户名：</span><input type="text" name="userName" id="userName">
+					<span>邮箱：</span><input name="email" id="email">
+					<span>是否有效：</span>
 					<select name="status" id="status">
-						<#list statusEnum as val>
-							<option value="${val}">${val.cnName}</option>
-						</#list>
+							<option value="1" selected="selected">有效</option>
+							<option value="0">无效</option>
+							<option value="">全部</option>
 					</select>
-					<span style="margin-left:10px;">是否默认：</span>
-					<select name="defaultRule" id="defaultRule">
-						<option value="">全部</option>
-						 <option value="DEFAULT">是</option>
-						 <option value="NOT_DEFAULT">否</option>
-					</select>
-				    <span>修改时间：</span>
-					<input type="text" id="startUpdateTime"  name="startUpdateTime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width:100px;" 
-						class="Wdate" readonly="readonly"/> - 
-			        <input type="text" id="endUpdateTime"  name="endUpdateTime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width:100px;" 
-						class="Wdate" readonly="readonly"/>
-					
 				</div>
 			</div>
 		</div>
@@ -335,14 +314,14 @@
 	  
   	<div class="click">
   		<a href="javascript:;"><div class="button" onclick="query()">查询</div></a> 
-  		<a href="javascript:;"><div class="button" onclick="addInsurance()">新增</div></a> 
+  		<a href="javascript:;"><div class="button" onclick="addSysUser()">新增</div></a> 
 	    <a href="javascript:;"><div class="button" onclick="reset()">清空</div></a>
 	</div>
 		
 	</form>
 	
  	<div class="content1" style="margin-top:50px;">
-		<table id="insuranceInfoList"></table>
+		<table id="sysUserList"></table>
         <div id="pager"></div>
     </div>
 	
