@@ -168,7 +168,7 @@
 		
 		//修改
 		function update(id) {
-		   	window.open("${request.contextPath}/insurance/queryInsuranceInfoDetail/"+id);
+		   	window.open("${request.contextPath}/system/querySysUserDetail/"+id);
 		}
 		 
 		function qianfenwei(num) {
@@ -224,27 +224,6 @@
 		    });
 		 }		
 		 
-		//根据supp查询保险产品
-		function getInsurance() {
-			var str="";
-			var suppId = $("#suppName").val();
-		    $.ajax({
-				url : 'getInsuranceBySupp',
-				type:'post',
-				//contentType : "application/json",
-		        data:{'suppId':suppId},
-		        dataType : "json",
-				success: function(data){
-					$("#insuranceName option").remove();
-					jQuery.each(data, function(i,item){    
-						str+="<option value='"+item.id+"'>"+item.insuranceClass.name+"</option>"; 
-			        }); 
-			        $("#insuranceName").append('<option value="">全部</option>');
-					$("#insuranceName").append(str);
-				}	
-		    });
-		 }
-		 
 		 //修改默认产品
 		function updateInsuranceDefaultRule(id,insuranceType,productTypes) {
 		
@@ -295,7 +274,7 @@
   <body>
   
 	<div class="content content1">
-	  <div class="breadnav"><span>首页</span> > 保险产品列表</div>
+	  <div class="breadnav"><span>首页</span> > 用户列表</div>
 	  <form id="myForm" autocomplete="off" >
 	  <div class="infor1">
 		 <div class="product message">

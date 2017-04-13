@@ -16,7 +16,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  * @date 2015-3-13
  */
 @XmlRootElement
-public class BaseResultDto<T> implements Serializable{
+public class BaseResultDto<T> extends ErrorMessage implements Serializable{
 
 	/**
 	 * 
@@ -28,15 +28,6 @@ public class BaseResultDto<T> implements Serializable{
 	private Pagination pagination = new Pagination();
 
 	private String queryKey;
-	
-	/** 结果状态枚举 */
-	private ResultStatus status = ResultStatus.SUCCESS;
-	
-	/** 错误信息*/
-	private String errCode;
-	 
-	/** 返回信息 */
-	private String message;
 	
 	/** 返回类型:true 同步 false 异步 */
 	private Boolean isSync;
@@ -119,28 +110,4 @@ public class BaseResultDto<T> implements Serializable{
 		this.isSync = isSync;
 	}
 
-	public String getErrCode() {
-		return errCode;
-	}
-
-	public void setErrCode(String errCode) {
-		this.errCode = errCode;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public ResultStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(ResultStatus status) {
-		this.status = status;
-	}
-	
 }
