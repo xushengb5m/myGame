@@ -59,7 +59,7 @@
                         <select id ="roleName" name="roleName" value=""/>
                         	<#list roles as val>  
 							  	<#if val!="NULL">
-									 <option value="${val.id}">${val.name}</option>
+									 <option value="${val.role}">${val.remark}</option>
 							  	</#if>
 							</#list>
 						</select>
@@ -69,26 +69,20 @@
                     <div style="background-color: #88b6d9 ;width: 120px; text-align:center"><label>可选信息</label></div>
                     <div class="vas_add">
                         <span><span style="color: red">*</span>账户类型:</span>&nbsp;&nbsp;
-                        <input type="text" id="email" name="email"  value="${vasProductInfo.productName}"/><br>
+                        <input type="text" id="userType" name="userType"  value=""/><br>
                         <span><span style="color: red">*</span>QQ:</span>&nbsp;&nbsp;
-                        <input type="text" id="password" type="password" name="password"/><br>
+                        <input type="text" id="qq" name="qq" value=""/><br>
                         <span><span style="color: red">*</span>住址:</span>&nbsp;&nbsp;
-                        <input id ="userName" name="userName" value="${vasProductInfo.advancedDays}"/><br>
+                        <input id ="address" name="address" value=""/><br>
                         <span><span style="color: red">*</span>手机号码:</span>&nbsp;&nbsp;
-                        <select id ="roleName" name="roleName" value=""/>
-                        	<#list roles as val>  
-							  	<#if val!="NULL">
-									 <option value="${val.id}">${val.name}</option>
-							  	</#if>
-							</#list>
-						</select>
+                        <input id ="mobTel" name="mobTel" value=""/>
 						<br>
                     </div>
                     <input id="productId" name="productId" type="hidden" value="${vasProductInfo.id}">
                     <input id="productSaleRuleId" name="productSaleRuleId" type="hidden" value="${vasProductInfo.productSaleRuleDto.id}">
                     
                     <div style="margin-left: 30%;margin-top: 30px">
-                        <input id="bt_edit_vas_product" style="width: 90px;height: 30px" type="button" name="" value="保存">
+                        <input id="bt_save_vas_product" style="width: 90px;height: 30px" type="button" value="保存">
                     </div>
                 </div>
             </div>
@@ -161,7 +155,7 @@
             imgids[i] = $(ori_vas_img_ids[i]).val();
         }
           
-          $("#bt_edit_vas_product").on("click",function(){ 
+          $("#bt_save_vas_product").on("click",function(){ 
 			if(isCouponProduct){ 
 				if($("#productName").val() == ""){
 					alert("产品名称不能为空!");
@@ -236,7 +230,7 @@
 					return;
 				}
             }
-            $('#bt_edit_vas_product').attr('disabled',"true");
+            $('#bt_save_vas_product').attr('disabled',"true");
            
 		    var requestUrl = '${request.contextPath}/vasProduct/editVasProduct';
 			
@@ -264,15 +258,15 @@
                 success: function (data) {
                     if(data.flag == 'SUCCESS'){
                         alert("编辑产品成功！");     
-                        $('#bt_edit_vas_product').removeAttr("disabled");                  
+                        $('#bt_save_vas_product').removeAttr("disabled");                  
                     }else{
                         alert("编辑产品失败！");
-                        $('#bt_edit_vas_product').removeAttr("disabled");
+                        $('#bt_save_vas_product').removeAttr("disabled");
                     }
                 },
                 error: function (msg) {
                     alert("编辑产品失败:"+msg);
-                    $('#bt_edit_vas_product').removeAttr("disabled");
+                    $('#bt_save_vas_product').removeAttr("disabled");
                 }
             });
         });

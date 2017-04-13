@@ -4,8 +4,6 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="systemUserMapper">
 
-
-
 	<sql id="queryCondition">
 		<trim prefix="WHERE" prefixOverrides="AND">
 			<if test="condition != null">

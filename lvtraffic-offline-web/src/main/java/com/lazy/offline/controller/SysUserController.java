@@ -46,14 +46,17 @@ public class SysUserController {
 	public String querySysUserDetail(Model model, @PathVariable("id")Long id) {
 		BaseQueryDto<Long> baseQuery = new BaseQueryDto<Long>(id);
 		User user= (User)baseCommonService.selectOne("systemUserMapper.selectSysUserDetail",baseQuery);
+		List<Object> roles = baseCommonService.selectListAll("roleMapper.selectRoles");
+		model.addAttribute("roles", roles);
 		model.addAttribute("user", user);
 		return "/system/sys_user_update";
 	}
 	
 	
 	@RequestMapping("/toAddSysUserPage")
-	public String toAddInsurance(Model model) {
-		
+	public String toAddInsurance(Model model,Pagination pg) {
+		List<Object> roles = baseCommonService.selectListAll("roleMapper.selectRoles");
+		model.addAttribute("roles", roles);
 		return "/system/sys_user_add";
 	}
 	
