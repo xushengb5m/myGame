@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lazy.offline.dao.mapper.RoleMapper">
+	
+	<select id="selectRoles" resultType="com.lazy.offline.model.Role">
+				SELECT id,role,remark
+				FROM cpsx_sys_dim_role 
+				ORDER BY id
+	</select>
+	
+	
+	<insert id="insert" useGeneratedKeys="true" keyColumn="id">
+		INSERT INTO cpsx_sys_dim_role (
+			ROLE,
+			REMARK,
+			CREATE_TIME
+		)
+		VALUES
+		(
+			#{condition.role}, 
+			#{condition.remark},
+			now()
+		)
+	</insert>
+</mapper>

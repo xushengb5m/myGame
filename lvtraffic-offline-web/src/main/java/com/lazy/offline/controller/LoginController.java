@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lazy.offline.constant.CacheConstant;
 import com.lazy.offline.constant.CookieKeyConstant;
+import com.lazy.offline.dao.mapper.SystemUserMapper;
 import com.lazy.offline.model.User;
 import com.lazy.offline.service.IBaseCommonService;
 import com.lazy.offline.service.cache.CacheMapService;
@@ -31,6 +32,9 @@ public class LoginController {
 	
 	@Autowired
 	private IBaseCommonService baseCommonService;
+	
+	@Autowired
+	private SystemUserMapper systemUserMapper;
 	
 	
 	@RequestMapping(value = "/searchUserLogin")
@@ -69,7 +73,7 @@ public class LoginController {
 						if (StringUtils.isBlank(loginUser.getUserName()) || StringUtils.isBlank(loginUser.getPassword()) ) {
 							msg="输入信息有误！";
 						} else {
-								User sysUser = (User) baseCommonService.selectOne("baseMapper.selectOneUser", loginUser);
+								User sysUser = systemUserMapper.selectOneUser(loginUser);
 								if (sysUser != null) {
 									sysUser.rolesHandling();
 									Cookie loginUserCookie = WebCookieComponent.createCookie(CookieKeyConstant.CPSX_LOGIN_USER,
