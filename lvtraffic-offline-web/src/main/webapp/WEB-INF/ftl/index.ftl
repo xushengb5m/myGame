@@ -101,7 +101,7 @@ top.location = "${request.contextPath}/userLogout";
             <ul class="ul_oper_list">
             	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/system/toResourceList"><span class="icon-tag_1"></span>资源管理</a></li>
             	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/system/toSysUserList"><span class="icon-tag_1"></span>用户管理</a></li>
-            	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/system/toRoleListPage"><span class="icon-tag_1"></span>角色管理</a></li>
+            	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/system/toRoleList"><span class="icon-tag_1"></span>角色管理</a></li>
             	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/system/toAccessListPage"><span class="icon-tag_1"></span>权限管理</a></li>
             </ul>
         </li>

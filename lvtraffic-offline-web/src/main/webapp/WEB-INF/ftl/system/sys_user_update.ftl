@@ -80,8 +80,7 @@
                         <input id ="mobTel" name="mobTel" value=""/>
 						<br>
                     </div>
-                    <input id="productId" name="productId" type="hidden" value="">
-                    <input id="productSaleRuleId" name="productSaleRuleId" type="hidden" value="">
+                    <input id="userId" name="userId" type="hidden" value="${user.id}">
                     
                     <div style="margin-left: 30%;margin-top: 30px">
                         <input id="bt_save_user" style="width: 90px;height: 30px" type="button" value="保存">
@@ -148,16 +147,17 @@
 					alert("角色不能为空!");
 					return;
 				} 
+				
 		
-	            $("#edit_vas_product_form").ajaxSubmit({
+	            $.ajax({
 	                type: "post",
-	                url: "${requestContextPath}/system/addSysUser",
+	                url: "${requestContextPath}/system/updateSysUser/"+Number($("#userId").val()),
 	                data:getParameters(),
 	                success: function (data) {
 	                    alert(data.message);
 	                },
 	                error: function (msg) {
-	                    alert("编辑用户失败:"+msg);
+	                    console.info(msg);
 	                }
 	            });
 		});
@@ -170,7 +170,7 @@
                'userName':$("#userName").val(),
                'password':$("#password").val(),
                'roleName':$("#roleName").val(),
-               'userType':$("#userType").val(),
+               'userType':Number($("#userType").val()),
                'qq':$("#qq").val(),
                'address':$("#address").val(),
                'mobTel':$("#mobTel").val()

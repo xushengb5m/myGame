@@ -65,7 +65,7 @@ public class SysUserController {
 	
 	@RequestMapping(value = "addSysUser")
     @ResponseBody
-	public ErrorMessage updateInsuranceDefaultRule(User user) {
+	public ErrorMessage addSysUser(User user) {
 		ErrorMessage em = new ErrorMessage();
 		try {
 			int userExist = systemUserMapper.selectEmailExist(user);
@@ -85,14 +85,43 @@ public class SysUserController {
 	    return em;
 	}
 	
-	@RequestMapping(value = "updateSysUser")
+	@RequestMapping(value = "updateSysUser/{id}")
     @ResponseBody
-	public ErrorMessage updateSysUser(User user) {
+	public ErrorMessage updateSysUser(User user, @PathVariable("id")int id) {
 		ErrorMessage em = new ErrorMessage();
-		int success = systemUserMapper.deleteById(user.getId());
+		int success = systemUserMapper.updateById(id, user);
 		if(success>0){
 			em.setMessage("保存成功!");
 		}else{
+			em.setMessage("保存失败!");
+		}
+	    return em;
+	}
+	
+	
+	@RequestMapping(value = "deleteSysUser/{id}")
+    @ResponseBody
+	public ErrorMessage deleteUser(Model model, @PathVariable("id")int id) {
+		ErrorMessage em = new ErrorMessage();
+		int success = systemUserMapper.deleteById(id);
+		if(success>0){
+			em.setMessage("保存成功!");
+		}else{
+			em.setMessage("保存失败!");
+		}
+	    return em;
+	}
+	
+	@RequestMapping(value = "effectiveSysUser/{id}")
+    @ResponseBody
+	public ErrorMessage effectiveUser(Model model, @PathVariable("id")int id) {
+		ErrorMessage em = new ErrorMessage();
+		int success = systemUserMapper.effectiveById(id);
+		if(success>0){
+			em.setErrCode("SUCCESS");
+			em.setMessage("保存成功!");
+		}else{
+			em.setErrCode("FAIL");
 			em.setMessage("保存失败!");
 		}
 	    return em;

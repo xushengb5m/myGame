@@ -49,7 +49,7 @@
 		}    
 		
 		function addSysUser() {  
-				window.open("${request.contextPath}/system/toAddInsurancePage"); 
+				window.open("${request.contextPath}/system/toAddSysUserPage"); 
 		}   
 
 		//打开销售调控
@@ -136,7 +136,7 @@
 				sortable:true,        //可以排序
 			    sortname: 'updateDate',  //排序字段名
 		        sortorder: "desc",    //排序方式：倒序
-				caption : '保险产品列表',
+				caption : '用户列表',
 				jsonReader : {
 				root : "results",               // json中代表实际模型数据的入口  
 				page : "pagination.page",       // json中代表当前页码的数据   
@@ -159,11 +159,11 @@
 						console.info(insStatus)
                          if(insStatus=='有效')
                         {
-							operateClick= '<a href="javascript:;" style="color:blue" onclick="update('+id+')" >修改</a> <a href="#" style="color:blue" onclick="deleteInsurance('+id+')" >设为无效</a> ';
+							operateClick= '<a href="javascript:;" style="color:blue" onclick="update('+id+')" >修改</a> <a href="#" style="color:blue" onclick="deleteUser('+id+')" >设为无效</a> ';
 						}
 						else
 						{	
-							operateClick= '<a href="javascript:;" style="color:blue" onclick="update('+id+')" >修改</a> <a href="#" style="color:blue" onclick="effectInsurance('+id+')" >设为有效</a> ';
+							operateClick= '<a href="javascript:;" style="color:blue" onclick="update('+id+')" >修改</a> <a href="#" style="color:blue" onclick="effectiveById('+id+')" >设为有效</a> ';
 						}
                         jQuery("#sysUserList").jqGrid('setRowData', id , {operate:operateClick});
                     }
@@ -192,9 +192,9 @@
     	}
 		
 		  //设置为有效
-		function effectInsurance(id) {
+		function effectiveById(id) {
 		   	$.ajax({
-				url : 'effectInsurance/'+id,
+				url : 'effectiveSysUser/'+id,
 				type:'post',
 		        dataType : "json",
 				contentType : "application/json;",
@@ -211,9 +211,9 @@
 		 }		
 		 
 		//删除
-		function deleteInsurance(id) {
+		function deleteUser(id) {
 		   	$.ajax({
-				url : 'deleteInsurance/'+id,
+				url : 'deleteSysUser/'+id,
 				type:'post',
 		        dataType : "json",
 				contentType : "application/json;",
@@ -229,50 +229,6 @@
 		    });
 		 }		
 		 
-		 //修改默认产品
-		function updateInsuranceDefaultRule(id,insuranceType,productTypes) {
-		
-			var gnl=confirm("确定改为默认产品？"); 
-			if(gnl==true){
-			   	$.ajax({
-					url : 'updateInsuranceDefaultRule/'+id+'/'+insuranceType+'/'+productTypes,
-					type:'post',
-			        dataType : "json",
-					contentType : "application/json;",
-					data : JSON.stringify({
-						id : id,
-						insuranceType : insuranceType
-					}),
-					success: function(data){
-						alert(data.message);
-						query();
-		   			}
-			    });
-			}
-		 }	
-		 
-		  //修改产品为不默认
-		function updateInsuranceNoDefaultRule(id,insuranceType,productTypes) {
-		
-			var gnl=confirm("确定改为不默认产品？"); 
-			if(gnl==true){
-			   	$.ajax({
-					url : 'updateInsuranceNoDefaultRule/'+id+'/'+insuranceType+'/'+productTypes,
-					type:'post',
-			        dataType : "json",
-					contentType : "application/json;",
-					data : JSON.stringify({
-						id : id,
-						insuranceType : insuranceType
-					}),
-					success: function(data){
-						alert(data.message);
-						query();
-		   			}
-			    });
-			}
-		 }	
-	
   </script>
     
   </head>

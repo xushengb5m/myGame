@@ -51,11 +51,54 @@
 		ORDER BY u.id DESC
 	</select>
 	
+	<update id="updateById">
+		UPDATE CPSX_SYS_DIM_USER 
+		SET
+			<if test="i.email != null and i.email != ''">
+				EMAIL=#{i.email},
+			</if>
+			<if test="i.userName != null and i.userName != ''">
+				USER_NAME=#{i.userName},
+			</if>
+			<if test="i.realName!= null and i.realName!= ''">
+				REAL_NAME=#{i.realName},
+			</if>
+			<if test="i.roleName!= null and i.roleName!= ''">
+				ROLE_NAME=#{i.roleName},
+			</if>
+			<if test="i.accountType!= null and i.accountType!= ''">
+				ACCOUNT_TYPE=#{i.accountType},
+			</if>
+			<if test="i.mobTel!= null and i.mobTel!= ''">
+				MOB_TEL=#{i.mobTel},
+			</if>
+			<if test="i.fixTel!= null and i.fixTel!= ''">
+				FIX_TEL=#{i.fixTel},
+			</if>
+			<if test="i.qq!= null and i.qq!= ''">
+				QQ=#{i.qq},
+			</if>
+			<if test="i.address!= null and i.address!= ''">
+				ADDRESS=#{i.address},
+			</if>
+			<if test="i.zipCode!= null and i.zipCode!= ''">
+				ZIPCODE=#{i.zipCode},
+			</if>
+			<if test="i.introduction!= null and i.introduction!= ''">
+				INTRODUCTION=#{i.introduction},
+			</if>
+			<if test="i.status != null and i.status != ''">
+				STATUS=#{i.status},
+			</if>
+			UPDATE_TIME=now()
+		WHERE id=#{id}
+	</update>
+	
 	<select id="selectEmailExist" resultType="java.lang.Integer" >
 		SELECT COUNT(1)
 		FROM cpsx_sys_dim_user u 
 		LEFT JOIN cpsx_sys_dim_role r on u.role_name = r.role
-		WHERE u.email = #{condition.email}
+		WHERE u.email = #{q.email}
 	</select>
 	
 	<select id="selectUserIdByEmail" resultType="java.lang.Integer">
@@ -107,6 +150,10 @@
 		WHERE id = #{id}
 	</update>
 	
-	
+	<update id="effectiveById">
+		UPDATE cpsx_sys_dim_user
+		SET status=1
+		WHERE id = #{id}
+	</update>
 	
 </mapper>

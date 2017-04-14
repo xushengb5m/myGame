@@ -1,185 +1,181 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>用户新增</title>
-	<link rel="stylesheet" href="${request.contextPath}/css/order-details.css" type="text/css"/>
-	<link type="text/css" rel="stylesheet" href="${request.contextPath}/js/resources/jquery-ui-1.8.11/css/redmond/jquery-ui-1.8.11.css"/>
-	<link type="text/css" rel="stylesheet" href="${request.contextPath}/js/resources/jqGrid/css/ui.jqgrid.css"/>
-	<script src="${request.contextPath}/js/resources/jqGrid/js/jquery-1.7.2.min.js"> </script>
-	<script src="${request.contextPath}/js/resources/jquery-ui-1.8.10.custom.min.js"></script>
-	<script src="${request.contextPath}/js/resources/jqGrid/src/i18n/grid.locale-cn.js"></script>
-	<script src="${request.contextPath}/js/resources/jqGrid/js/jquery.jqGrid.src.js"></script>
-	<script src="${request.contextPath}/js/Calendar.js"></script>
-	
-	<script type="text/javascript">
-	
-		$(function() {
-			//提交申请
-			$(".button").click(function() {
-				$.ajax({
-					url : "addSysUser",
-					dataType : "json",
-					contentType : "application/json;",
-					type : "POST",
-					data : JSON.stringify({
-						insuranceInfoDto : setInsuranceInfoDto()
-					}),
-					success : function(data) {
-						alert(data.message);
-					}
-				}); //ajax-end
-			});//.button-end
-			
-			//组装数据
-			function setInsuranceInfoDto() {
-			
-				 
-				if($.trim($('#insuranceCode').val()) == ''){
-					alert("产品编码不能为空！");
-				}else if($.trim($('#insuranceName').val()) == ''){
-					alert("险种名称不能为空！");
-				}else if($('#insuranceAmount').val() == ''){
-					alert("保额不能为空！");
-				}else if($("#insurancePrice").val() == ''){
-					alert("市场参考销售价不能为空！");
-				}else if($("#costPrice").val() == ''){
-					alert("销售成本价不能为空！");
-				}else{
-					var insuranceInfoDto = new Object;
-					var supp = new Object;
-					supp.id = $('#suppName').val();
-					insuranceInfoDto.supp = supp;
-					var insuranceClass = new Object;
-					insuranceClass.code = $.trim($('#insuranceCode').val());
-					insuranceClass.name = $.trim($('#insuranceName').val());
-					//insuranceClass.name = $('#insuranceName').find("option:selected").text();
-					insuranceInfoDto.insuranceClass = insuranceClass;
-					insuranceInfoDto.insurancePrice = $.trim($("#insurancePrice").val());
-					insuranceInfoDto.maxInsureNum = $.trim($("#maxInsureNum").val());
-					insuranceInfoDto.insuranceDesc = $.trim($("#insuranceDesc").val());
-					insuranceInfoDto.productTypes =getProductTypeStr();
-					insuranceInfoDto.insuranceType = $.trim($("#insuranceType").val());
-					insuranceInfoDto.insuranceRemark = $.trim($("#insuranceRemark").val());
-					insuranceInfoDto.costPrice = $.trim($("#costPrice").val());
-					insuranceInfoDto.defaultRule = "NOT_DEFAULT";
-					insuranceInfoDto.status = $("#status").val();
-					insuranceInfoDto.insuranceAmount = $("#insuranceAmount").val();
-					return insuranceInfoDto;
-				}
-			}
-			
-		})
-	function getProductTypeStr(){
-	
-	    var productTypeStr = "";
-		$("input[name=productType]").each(function() {  
-            if ($(this).attr("checked")) {  
-                productTypeStr += ","+$(this).val();  
-            }  
-        }); 
-			        
-        productTypeStr=productTypeStr.substring(1,productTypeStr.length);
-        return productTypeStr;
-	}
-	//判断如果选择全部，则取消其他选择
-	function opeateClick(opeateName,opeateVal){
-	     if(opeateVal!="" &&　opeateVal=="ALL"){
-		     $("input[tempName='"+opeateName+"']:checkbox").each(function(id) {
-		         var index=parseInt(id)+1;
-				$("#"+opeateName+index).attr("checked",false);
-			});
-	     }else{
-             $("#"+opeateName+"0").attr("checked",false);;
-	     }
-	}
-	
-	function fixPrice(obj){
-	   var price = parseFloat($(obj).val()).toFixed(2);
-	   if(isNaN(price)){
-	      $(obj).val("");
-	   }else{
-	      $(obj).val(price);
-	   }
-	   
-	}
-	</script>
-	
-</head>
-  
-<body>
 
-	<div class="content content1">
-	<div class="breadnav"><span>首页</span> > 保险产品维护</div>
-        <input type="hidden" name="search" value="false">
-		<div class="infor1">
-			
-			<div class="product ms">
-				
-				<div class="main">
-					<div style="background-color: #88b6d9 ;width: 120px; text-align:center"><label >基本信息</label></div>
-					<div class="part" style="">
-						<span style="margin-left:10px;">&nbsp;&nbsp;&nbsp;供应商：</span>
-						<select name="suppName" id="suppName">
-							<#list supps as supp>
-								<option value="${(supp.id)!''}">${(supp.name)!''}</option>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" href="${request.contextPath}/css/trip-list.css">
+    <link rel="stylesheet" href="${request.contextPath}/css/order-details.css" type="text/css"/>
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/js/resources/jquery-ui-1.8.11/css/redmond/jquery-ui-1.8.11.css"/>
+    <link type="text/css" rel="stylesheet" href="${request.contextPath}/js/resources/jqGrid/css/ui.jqgrid.css"/>
+    <script src="${request.contextPath}/js/resources/jqGrid/js/jquery-1.7.2.min.js"> </script>
+    <script src="${request.contextPath}/js/resources/jquery-ui-1.8.10.custom.min.js"></script>
+    <script src="${request.contextPath}/js/resources/jqGrid/src/i18n/grid.locale-cn.js"></script>
+    <script src="${request.contextPath}/js/resources/jqGrid/js/jquery.jqGrid.src.js"></script>
+    <script type="text/javascript" src="${request.contextPath}/js/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="${request.contextPath}/js/jquery.form.js"></script>
+
+    <style>
+        .vas_add{
+
+        }
+        div.vas_add > span {
+            display: inline-block;
+            width: 100px;
+            text-align:right;
+        }
+        div.vas_add  input {
+            height: 20px;
+            width: 250px;
+        }
+        div.vas_add  select {
+            height: 20px;
+            width: 250px;
+        }
+        .no_border{
+            border-left:0px;
+            border-top: 0px;
+            border-right: 0px;
+            border-bottom: 0px;
+        }
+    </style>
+</head>
+<body>
+<div class="content content1">
+    <form id="edit_vas_product_form" name="edit_vas_product_form" enctype="multipart/form-data">
+        <div class="breadnav"><span>用户管理</span>> 新增用户</div>
+        <div class="infor1" id="conditionDiv">
+            <div class="order message">
+                <div class="main">
+                    <div style="background-color: #88b6d9 ;width: 120px; text-align:center"><label >基本信息</label></div>
+                    <div class="vas_add">
+                        <span><span style="color: red">*</span>用户邮箱:</span>&nbsp;&nbsp;
+                        <input type="text" id="email" name="email"/><br>
+                        <span><span style="color: red">*</span>密        码:</span>&nbsp;&nbsp;
+                        <input type="text" id="password" type="password" name="password"/><br>
+                        <span><span style="color: red">*</span>用户姓名:</span>&nbsp;&nbsp;
+                        <input id ="userName" name="userName" /><br>
+                        <span><span style="color: red">*</span>用户角色:</span>&nbsp;&nbsp;
+                        <select id ="roleName" name="roleName"/>
+                        	<#list roles as val>  
+							  		 <option value="${val.role}" >${val.remark}</option>
 							</#list>
 						</select>
-						<span style="margin-left:10px;">产品编码：</span><input type="text" id="insuranceCode" name="insuranceCode" style="width:80px" />
-						<span style="margin-left:10px;">保险类型：</span>
-						<select name="insuranceType" id="insuranceType">
-							<#list insuranceTypeEnum as val>
-					        	<option value="${val}">${val.cnName}</option>
-					        </#list> 
-				        </select>
-				        
-						<span style="margin-left:10px;">产品状态：</span>
-						<select name="status" id="status">
-								<option value="INVALID">无效</option>
-					        	<option value="VALID">有效</option>
-				        </select>
-				        </br>
-				         <span style="margin-left:10px;"><span style="color: red">*</span>险种名称：</span><input type="text" id="insuranceName" name="insuranceName" style="width:120px" />
-				         </br>
-						 <span style="margin-left:10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: red">*</span>保额：</span><input type="text" id="insuranceAmount" name="insuranceAmount" style="width:120px" />
-						</br>
-						<span style="margin-left:10px;"><span style="color: red">*</span>适用产品类型：</span>
-						<#list productEnum as productType>
-						   	<!--<input type="checkbox" class="choose" tempName="productType" onclick="opeateClick('productType',this.value)" id="productType${productType_index+1}" name="productType${productType_index+1}" 
-						   		value="${productType}" /> ${productType.cnName}-->
-						   	<input type="checkbox" name="productType" id="productType${productType_index+1}" value="${productType}"  /> <label for="productType${productType_index+1}">${productType.cnName}</label>
-						</#list>
-						</br>
-						<span style="margin-left:10px;">保险简介：</span><input type="text" id="insuranceRemark" name="insuranceRemark" maxlength="10" style="width:680px" />
-						</br>
-						<span>保险说明：</span><textarea id="insuranceDesc" name="insuranceDesc" style="width:702px" rows="6" ></textarea>
-						
-					</div>	
+						<br>
+                    </div>
 					
-					<div style="background-color: #88b6d9 ;width: 120px; text-align:center"><label >销售信息</label></div>
-					<div class="part" style="">		
-						<span style="margin-left:10px;">最多销售份数：</span>
-						<input type="text" id="maxInsureNum" name="maxInsureNum" maxlength="2" style="IME-MODE: disabled;"
-						onblur="value=value.replace(/[^\d]/g,'')"  />
-						</br>
-						<span style="margin-left:10px;"><span style="color: red">*</span>市场参考销售价：</span>
-						<input type="text" id="insurancePrice" name="insurancePrice" maxlength="3" style="width:90px;IME-MODE: disabled;" 
-						onblur="fixPrice(this)"  />
-						</br>
-						<span style="margin-left:10px;"><span style="color: red">*</span>销售成本价：</span>
-						<input type="text" id="costPrice" name="costPrice" maxlength="3" style="width:90px;IME-MODE: disabled;" 
-						onblur="fixPrice(this)"  />
-					</div>
-					
-					
-				</div>
-			</div>
-			
-		</div>
-		<div class="click">
-			<a href="javascript:void();"><div class="button" id="queryBtn">保存</div></a>
-		</div>
-	</div>
-
-
+                    <div style="background-color: #88b6d9 ;width: 120px; text-align:center"><label>可选信息</label></div>
+                    <div class="vas_add">
+                        <span><span style="color: red">*</span>账户类型:</span>&nbsp;&nbsp;
+                        <input type="text" id="userType" name="userType"  value=""/><br>
+                        <span><span style="color: red">*</span>QQ:</span>&nbsp;&nbsp;
+                        <input type="text" id="qq" name="qq" value=""/><br>
+                        <span><span style="color: red">*</span>住址:</span>&nbsp;&nbsp;
+                        <input id ="address" name="address" value=""/><br>
+                        <span><span style="color: red">*</span>手机号码:</span>&nbsp;&nbsp;
+                        <input id ="mobTel" name="mobTel" value=""/>
+						<br>
+                    </div>
+                    <input id="productId" name="productId" type="hidden" value="">
+                    <input id="productSaleRuleId" name="productSaleRuleId" type="hidden" value="">
+                    
+                    <div style="margin-left: 30%;margin-top: 30px">
+                        <input id="bt_save_user" style="width: 90px;height: 30px" type="button" value="保存">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 </body>
+<script>
+		$(document).ready(function() { 
+			$('input[valid]').each(function(){ 
+			var $this = $(this); 
+			var valid = $this.attr('valid');  
+			if(valid=='num'){ 
+					$this.blur(function(){ 
+					onlyNum($this[0]); 
+				}); 
+			} else if(valid=='decimal'){ 
+					$this.blur(function(){ 
+					onlyDecimal($this[0]); 
+				}); 
+			} 
+			}); 
+		}); 
+
+		function onlyNum(obj){  
+		if(obj.value!=''){
+			 var desc = $(obj).attr('desc'); 
+			 var reg = /^[1-9]*[1-9][0-9]*$/;
+			 if(!reg.test(obj.value)){
+				 alert(""+desc+"必须是正整数");
+				 obj.value='';
+				 obj.focus();
+				 return ;
+			 }
+		 }
+		}  
+		
+		function onlyDecimal(obj){  
+		if(obj.value!=''){
+			 var desc = $(obj).attr('desc'); 
+			 var reg = /^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/; 
+			 if(!reg.test(obj.value)){
+				 alert(""+desc+"必须是非负数");
+				 obj.value='';
+				 obj.focus();
+				 return ;
+			 }
+		 }
+		}  
+
+		$("#bt_save_user").on("click",function(){ 
+				if($("#email").val() == ""){
+					alert("邮箱不能为空!");
+					return;
+				} 
+				if($("#userName").val() == ""){
+					alert("用户名不能为空!");
+					return;
+				} 
+				if($("#roleName").val() == ""){
+					alert("角色不能为空!");
+					return;
+				} 
+		
+	            $("#edit_vas_product_form").ajaxSubmit({
+	                type: "post",
+	                url: "${requestContextPath}/system/addSysUser",
+	                data:getParameters(),
+	                success: function (data) {
+	                    alert(data.message);
+	                },
+	                error: function (msg) {
+	                    alert("编辑用户失败:"+msg);
+	                }
+	            });
+		});
+	
+        
+        //
+        function getParameters(){
+           return  {
+               'email':$("#email").val(),
+               'userName':$("#userName").val(),
+               'password':$("#password").val(),
+               'roleName':$("#roleName").val(),
+               'userType':$("#userType").val(),
+               'qq':$("#qq").val(),
+               'address':$("#address").val(),
+               'mobTel':$("#mobTel").val()
+           };
+        }
+	
+    
+</script>
 </html>
+
+
+

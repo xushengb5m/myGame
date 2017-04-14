@@ -10,6 +10,13 @@
 				ORDER BY id
 	</select>
 	
+	<select id="query" resultType="com.lazy.offline.model.Role">
+				SELECT id,role,remark
+				FROM cpsx_sys_dim_role 
+				ORDER BY id
+				<include refid="MYSQL.pagination" />
+	</select>
+	
 	<select id="getById" resultType="com.lazy.offline.model.Role">
 				SELECT id,role,remark
 				FROM cpsx_sys_dim_role r 

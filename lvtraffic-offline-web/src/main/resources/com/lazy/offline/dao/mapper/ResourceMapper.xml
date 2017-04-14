@@ -11,14 +11,14 @@
 	
 	<select id="queryAll" resultType="com.lazy.offline.model.Resource">
 				SELECT
-				<include id="column"/>
+				<include refid="column"/>
 				FROM cpsx_sys_dim_resource r 
 				ORDER BY r.posorder ASC
 	</select>
 	
 	<select id="getById" resultType="com.lazy.offline.model.Resource">
 				SELECT
-				<include id="column"/>
+				<include refid="column"/>
 				FROM cpsx_sys_dim_resource r 
 				WHERE id={#id}
 	</select>
