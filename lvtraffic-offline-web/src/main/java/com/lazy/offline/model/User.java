@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class User implements Serializable{
 	/** 
-	 * @Fields serialVersionUID : TODO 
+	 * @Fields serialVersionUID : TODO
 	 */ 
 	private static final long serialVersionUID = -3823043574831776030L;
 	private int id;

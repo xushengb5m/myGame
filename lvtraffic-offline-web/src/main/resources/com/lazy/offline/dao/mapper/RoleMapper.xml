@@ -4,10 +4,16 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lazy.offline.dao.mapper.RoleMapper">
 	
-	<select id="selectRoles" resultType="com.lazy.offline.model.Role">
+	<select id="queryAll" resultType="com.lazy.offline.model.Role">
 				SELECT id,role,remark
 				FROM cpsx_sys_dim_role 
 				ORDER BY id
+	</select>
+	
+	<select id="getById" resultType="com.lazy.offline.model.Role">
+				SELECT id,role,remark
+				FROM cpsx_sys_dim_role r 
+				WHERE id={#id}
 	</select>
 	
 	
@@ -24,4 +30,6 @@
 			now()
 		)
 	</insert>
+	
+	
 </mapper>

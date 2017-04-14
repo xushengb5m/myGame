@@ -58,8 +58,10 @@
                         <span><span style="color: red">*</span>用户角色:</span>&nbsp;&nbsp;
                         <select id ="roleName" name="roleName" value=""/>
                         	<#list roles as val>  
-							  	<#if val!="NULL">
-									 <option value="${val.role}">${val.remark}</option>
+							  	<#if user.roleName==val.role>
+									 <option value="${val.role}" selected="true">${val.remark}</option>
+							  	<#else>
+							  		 <option value="${val.role}" >${val.remark}</option>
 							  	</#if>
 							</#list>
 						</select>

@@ -17,7 +17,7 @@ public class SystemUserServiceImpl implements SystemUserService{
 	private SystemUserMapper systemUserMapper;
 	
 	public List<User> selectSysUserListPage(BaseQueryDto<User> baseQuery){
-		return systemUserMapper.selectSysUserListPage(baseQuery);
+		return systemUserMapper.query(baseQuery);
 	}
 
 }

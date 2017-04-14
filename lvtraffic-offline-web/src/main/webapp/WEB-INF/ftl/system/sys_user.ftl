@@ -81,7 +81,7 @@
 				url : "${request.contextPath}/system/loadSysUserData",
 				datatype : "json",
 				mtype : "POST",
-				colNames : ['用户名','邮箱','真实姓名','用户类型','账户类型','创建时间','操作'],
+				colNames : ['用户名','邮箱','真实姓名','角色','用户类型','账户类型','创建时间','操作'],
 				colModel : [ {
 					name : 'userName',
 					index : 'userName',
@@ -98,6 +98,11 @@
 					index : 'realName',
 					align : 'center'
 				}, {
+					name : 'roleName',
+					width :100,
+					index : 'roleName',
+					align : 'center'
+				},{
 					name : 'userType',
 					width :100,
 					index : 'userType',

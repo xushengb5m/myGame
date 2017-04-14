@@ -125,16 +125,4 @@
 	<!-- spring 工具类 -->
 	<bean id="springContextUtil" class="com.lazy.offline.utils.SpringContextUtils" />
 	
-	<!-- 通用查询mapper -->
-	<bean id="baseCommonMapper" class="com.lazy.offline.dao.BaseCommonMapper"
-		lazy-init="false">
-		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
-	</bean>
-	
-	<!-- 通用查询service -->
-	<bean id="baseCommonService" class="com.lazy.offline.service.BaseCommonServiceImpl"
-	 	lazy-init="false">
-		<property name="baseCommonMapper" ref="baseCommonMapper"></property>
-	</bean>
-	
 </beans>

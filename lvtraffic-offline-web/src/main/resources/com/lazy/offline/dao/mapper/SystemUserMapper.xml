@@ -23,23 +23,21 @@
 	<select id="selectOneUser" resultType="com.lazy.offline.model.User">
 				SELECT u.id,u.email,u.password,u.create_time,u.user_name,r.remark,r.role,r.id as roleId 
 				FROM cpsx_sys_dim_user u
-				LEFT JOIN cpsx_sys_map_user_role ur on u.id=ur.user_id
-				LEFT JOIN	cpsx_sys_dim_role r on r.id = ur.role_id
+				LEFT JOIN	cpsx_sys_dim_role r on u.role_name = r.role
 				WHERE u.user_name=#{userName}
 	</select>
 	
 	<sql id="columns">
 		u.id,u.email,u.password,u.create_time as createTime,u.user_name AS userName,u.user_type AS userType,
 		u.real_name AS realName,u.account_type AS accountType,u.mob_tel AS mobTel,u.fix_tel AS fixTel,u.qq,u.address,
-		u.zip_code AS zipCode,u.introduction,r.role AS role,r. ID AS roleNumbers,r.remark AS roleName
+		u.zip_code AS zipCode,u.introduction,u.role_name AS roleName
 	</sql>
 	
 	<select id="query" resultType="com.lazy.offline.model.User">
 		SELECT 
 		<include refid="columns" />
 		FROM cpsx_sys_dim_user u 
-		LEFT JOIN cpsx_sys_map_user_role ur  on u.id=ur.user_id 
-		LEFT JOIN cpsx_sys_dim_role r on ur.role_id= r.id 
+		LEFT JOIN cpsx_sys_dim_role r on u.role_name = r.role 
 		<include refid="queryCondition" />
 		ORDER BY u.id DESC
 		<include refid="MYSQL.pagination" />
@@ -48,25 +46,22 @@
 	<select id="getById" resultType="com.lazy.offline.model.User">
 		SELECT <include refid="columns" />
 		FROM cpsx_sys_dim_user u 
-		LEFT JOIN cpsx_sys_map_user_role ur  on u.id=ur.user_id 
-		LEFT JOIN cpsx_sys_dim_role r on ur.role_id= r.id 
-		WHERE u.id = #{condition}
+		LEFT JOIN cpsx_sys_dim_role r on u.role_name = r.role 
+		WHERE u.id = #{id}
 		ORDER BY u.id DESC
 	</select>
 	
 	<select id="selectEmailExist" resultType="java.lang.Integer" >
 		SELECT COUNT(1)
 		FROM cpsx_sys_dim_user u 
-		LEFT JOIN cpsx_sys_map_user_role ur  on u.id=ur.user_id 
-		LEFT JOIN cpsx_sys_dim_role r on ur.role_id= r.id 
+		LEFT JOIN cpsx_sys_dim_role r on u.role_name = r.role
 		WHERE u.email = #{condition.email}
 	</select>
 	
 	<select id="selectUserIdByEmail" resultType="java.lang.Integer">
 		SELECT u.id
 		FROM cpsx_sys_dim_user u 
-		LEFT JOIN cpsx_sys_map_user_role ur  on u.id=ur.user_id 
-		LEFT JOIN cpsx_sys_dim_role r on ur.role_id= r.id 
+		LEFT JOIN cpsx_sys_dim_role r on u.role_name = r.role 
 		WHERE u.email = #{condition.email}
 	</select>
 	
@@ -76,6 +71,7 @@
 			USER_NAME,
 			USER_TYPE,
 			REAL_NAME,
+			ROLE_NAME,
 			ACCOUNT_TYPE,
 			MOB_TEL,
 			FIX_TEL,
@@ -91,7 +87,8 @@
 			#{condition.email}, 
 			#{condition.userName},
 			#{condition.userType},
-			#{condition.realName}, 
+			#{condition.realName},
+			#{condition.roleName}, 
 			#{condition.accountType}, 
 			#{condition.mobTel},
 			#{condition.fixTel},
@@ -104,12 +101,11 @@
 		)
 	</insert>
 	
-	<delete id="deleteById" resultType="java.lang.Integer">
-		UPDATE cpsx_sys_dim_user u 
-		LEFT JOIN cpsx_sys_map_user_role ur  on u.id=ur.user_id 
-		LEFT JOIN cpsx_sys_dim_role r on ur.role_id= r.id 
-		WHERE u.email = #{condition.email}
-	</delete>
+	<update id="deleteById">
+		UPDATE cpsx_sys_dim_user
+		SET status=0
+		WHERE id = #{id}
+	</update>
 	
 	
 	

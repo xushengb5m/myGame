@@ -17,7 +17,6 @@ import com.lazy.offline.constant.CacheConstant;
 import com.lazy.offline.constant.CookieKeyConstant;
 import com.lazy.offline.dao.mapper.SystemUserMapper;
 import com.lazy.offline.model.User;
-import com.lazy.offline.service.IBaseCommonService;
 import com.lazy.offline.service.cache.CacheMapService;
 import com.lazy.offline.utils.CPCDigestUtils;
 import com.lazy.offline.utils.WebCookieComponent;
@@ -29,9 +28,6 @@ public class LoginController {
 	
 	@Autowired
 	private CacheMapService cacheMapService;
-	
-	@Autowired
-	private IBaseCommonService baseCommonService;
 	
 	@Autowired
 	private SystemUserMapper systemUserMapper;

@@ -19,14 +19,10 @@ import com.lazy.offline.model.base.BaseQueryDto;
 import com.lazy.offline.model.base.BaseResultDto;
 import com.lazy.offline.model.base.ErrorMessage;
 import com.lazy.offline.model.base.Pagination;
-import com.lazy.offline.service.IBaseCommonService;
 
 @Controller
 @RequestMapping("system")
 public class SysUserController {
-	
-	@Autowired
-	private IBaseCommonService baseCommonService;
 	
 	@Autowired
 	private SystemUserMapper systemUserMapper;
@@ -44,7 +40,7 @@ public class SysUserController {
 	@ResponseBody
 	private BaseResultDto<User> loadResourceData(User user,Pagination pg,Model model) {
 		BaseQueryDto<User> baseQuery = new BaseQueryDto<User>(pg,user);
-		List<User> userList= systemUserMapper.selectSysUserListPage(baseQuery);
+		List<User> userList= systemUserMapper.query(baseQuery);
 		BaseResultDto<User> baseResult = new BaseResultDto<User>(userList);
 		return baseResult;
 	}
@@ -72,21 +68,11 @@ public class SysUserController {
 	public ErrorMessage updateInsuranceDefaultRule(User user) {
 		ErrorMessage em = new ErrorMessage();
 		try {
-			BaseQueryDto<User> baseQuery = new BaseQueryDto<User>(user);
 			int userExist = systemUserMapper.selectEmailExist(user);
 			if(userExist>=1){
 				em.setMessage("用户邮箱已存在!");
 			}else{
-				int success = 0;
-				int insertSuccess = systemUserMapper.insert(user);
-				if(insertSuccess>0){
-					int userId = systemUserMapper.selectUserIdByEmail(user);
-					if(userId>0){
-						user.setId(userId);
-						success = (Integer)baseCommonService.insert("userRoleMapper.insertUserRole", baseQuery);
-					}
-				}
-				
+				int success = systemUserMapper.insert(user);
 				if(success>0){
 					em.setMessage("保存成功!");
 				}else{
@@ -103,7 +89,7 @@ public class SysUserController {
     @ResponseBody
 	public ErrorMessage updateSysUser(User user) {
 		ErrorMessage em = new ErrorMessage();
-		int success = systemUserMapper.updateById(user.getId(), user);
+		int success = systemUserMapper.deleteById(user.getId());
 		if(success>0){
 			em.setMessage("保存成功!");
 		}else{

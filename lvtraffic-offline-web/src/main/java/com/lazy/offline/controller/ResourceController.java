@@ -14,15 +14,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.lazy.offline.dao.mapper.ResourceMapper;
 import com.lazy.offline.model.Resource;
-import com.lazy.offline.service.IBaseCommonService;
 
 @Controller
 @RequestMapping("system")
 public class ResourceController {
 	
 	@Autowired
-	private IBaseCommonService baseCommonService;
+	private ResourceMapper resourceMapper;
 	
 	@RequestMapping(value = "/toResourceList")
 	private String toResourceList(HttpServletRequest request,HttpServletResponse response) {
@@ -34,12 +34,11 @@ public class ResourceController {
 	@ResponseBody
 	private List<Resource> loadResourceData(HttpServletRequest request,HttpServletResponse response) {
 		
-		List<Object> resouces = baseCommonService.selectListAll("resourceMapper.selectResources");
+		List<Resource> resList = resourceMapper.queryAll();
 		List<Resource> resources = new ArrayList<Resource>();
 		
-		if(resouces.size()>0){
-			for(Object obj:resouces){
-				Resource resource =(Resource)obj;
+		if(resList.size()>0){
+			for(Resource resource:resList){
 				resource.setText(resource.getResourceName()); //填充树形结构的资源名称
 				resources.add(resource);
 			}
@@ -79,14 +78,7 @@ public class ResourceController {
 				}
 			}
 		}
-
 		
-//		String resouceData = "[{\"id\":1,\"text\":\"My Documents\",\"children\":[{\"id\":11,\"text\":\"Photos\",\"state\":\"closed\",\"children\":[{\"id\":111,\"text\":" +
-//				"\"Friend\"},{\"id\":112,\"text\":\"Wife\"},{\"id\":113,\"text\":\"Company\"}]}," +
-//				"{\"id\":12,\"text\":\"Program Files\",\"children\":[{\"id\":121,\"text\":\"Intel\"},{\"id\":122,\"text\":\"Java\"," +
-//				"\"attributes\":{\"p1\":\"Custom Attribute1\",\"p2\":\"Custom Attribute2\"}}," +
-//				"{\"id\":123,\"text\":\"Microsoft Office\"},{\"id\":124,\"text\":\"Games\",\"checked\":true}]}," +
-//						"{\"id\":13,\"text\":\"index.html\"},{\"id\":14,\"text\":\"about.html\"},{\"id\":15,\"text\":\"welcome.html\"}]}]";
 		return resourcesResult;
 	}
 
