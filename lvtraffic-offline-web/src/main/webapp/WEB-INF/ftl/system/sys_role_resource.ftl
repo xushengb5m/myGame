@@ -25,7 +25,8 @@
     				$("#menuTree").tree({
     					data : data,
     					animate:true,
-    					lines:true
+    					lines:true,
+    					checkbox:true
     				});
     			} 
     		})
