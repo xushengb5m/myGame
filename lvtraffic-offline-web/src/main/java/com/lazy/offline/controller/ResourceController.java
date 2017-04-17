@@ -58,26 +58,6 @@ public class ResourceController {
 				resourcesResult.add(dmpResource);
 			}
 		}
-		String selectedResourceIds = request.getParameter("selectedResourceIds");
-		
-		if (StringUtils.isNotBlank(selectedResourceIds)) {
-			selectedResourceIds = selectedResourceIds.trim();
-			String[] resourceIdArray = selectedResourceIds.split(",");
-			for (Resource resource : resourcesResult) {
-				List<Resource> children = resource.getChildren();
-				if (children.size() > 0) {
-					for (Resource child : children) {
-						Long id = Long.valueOf(child.getId());
-						for (String resourceid : resourceIdArray) {
-							if (id.equals(Long.valueOf(resourceid))) {
-								resource.setDefinedState(true);
-								resource.setState("open");
-							}
-						}
-					}
-				}
-			}
-		}
 		
 		return resourcesResult;
 	}
