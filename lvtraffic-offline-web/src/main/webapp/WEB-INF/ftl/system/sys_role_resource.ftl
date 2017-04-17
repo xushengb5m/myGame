@@ -38,9 +38,13 @@
     			dataType:"json",
     			type : "GET",
     			success : function(data) {
-    					var node = $("#menuTree").tree("find",data[1]);
-    					$("#menuTree").tree("check",node.target);
-    					console.info(node);
+    				for(var i=0;i<data.length;i++){
+    					var node = $("#menuTree").tree("find",data[i]);
+    					console.info(node.ismenu);
+    					if(node.ismenu=="n"){
+    						$("#menuTree").tree("check",node.target);
+    					}
+    				}
     			}
     		});
 			
