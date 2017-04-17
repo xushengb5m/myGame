@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lazy.offline.dao.mapper.RoleResourceMapper">
+	
+	<select id="selectResourceIdByRoleId" resultType="java.lang.Integer">
+				SELECT r.id
+				FROM cpsx_sys_map_role_resource m
+				LEFT JOIN cpsx_sys_dim_resource r
+				ON m.resource_id=r.id
+				WHERE role_id=#{id}
+	</select>
+	
+	
+	
+</mapper>

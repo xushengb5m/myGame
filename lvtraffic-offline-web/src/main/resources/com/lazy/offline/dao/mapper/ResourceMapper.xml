@@ -19,9 +19,8 @@
 	<select id="getById" resultType="com.lazy.offline.model.Resource">
 				SELECT
 				<include refid="column"/>
-				FROM cpsx_sys_dim_resource r 
-				WHERE id={#id}
+				FROM cpsx_sys_dim_resource r
+				WHERE id=#{id}
 	</select>
-	
 	
 </mapper>

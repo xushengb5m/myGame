@@ -27,24 +27,6 @@ public class Resource extends EasyUiTreeNode<Resource> implements Serializable {
 	private String clsname;
 	//当作查询条件dto时候需要使用.
 	private String engName;
-	private int roleId;
-	private List<Integer> roleIdList;
-
-	public int getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
-	}
-
-	public List<Integer> getRoleIdList() {
-		return roleIdList;
-	}
-
-	public void setRoleIdList(List<Integer> roleIdList) {
-		this.roleIdList = roleIdList;
-	}
 
 	public String getClsname() {
 		return clsname;

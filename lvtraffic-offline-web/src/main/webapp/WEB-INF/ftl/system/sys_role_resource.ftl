@@ -13,14 +13,13 @@
     <script type="text/javascript">
     
 	    $(function (){
-			initTree();
+	    	initTree();
 	    });    
 		
 		function initTree() {
 			$.ajax({
     			url : "${request.contextPath}/system/loadResourceData",
-    			dataType:"json",
-    			type : "GET",
+    			type : "POST",
     			success : function(data) {
     				$("#menuTree").tree({
     					data : data,
@@ -28,8 +27,27 @@
     					lines:true,
     					checkbox:true
     				});
-    			} 
-    		})
+    				initRoleResource();
+    			}
+    		});
+		}
+		
+		function initRoleResource(){
+			$.ajax({
+    			url : "${request.contextPath}/system/toRoleResource/"+$("#id").val(),
+    			dataType:"json",
+    			type : "GET",
+    			success : function(data) {
+    				for(var i=0;i<data.length;i++){
+    					var node = $("#menuTree").tree("find",data[i]);
+    					
+    					$("#menuTree").tree("select",node.target);
+    					console.info(node);
+    					
+    				}
+    			}
+    		});
+			
 		}
 		
 		function collapseAll(){
@@ -39,13 +57,10 @@
             $('#menuTree').tree('expandAll');
         }
         function expandTo(){
-            var node = $('#tt').tree('find',113);
             $('#menuTree').tree('expandTo', node.target).tree('select', node.target);
         }
 			
 		function toEditDialog(){
-	            var node = $('#menuTree').tree('getSelected');
-	            console.info(node);
 	            if (!node){
 	                alert("请选择一个节点!");
 	            }
@@ -56,21 +71,46 @@
                 alert(s);
 	    }
 		
+		function toHasChosen(){
+			var allNodes = $('#menuTree').tree('getRoots');
+			for(var i=0;i<allNodes.length;i++){
+				console.info(allNodes[i].children);
+				console.info(allNodes[i].children.length);
+				console.info(allNodes[i].checkState);
+			}
+			
+			
+		}
+		
   </script>
     
   </head>
   <body>
 	<div class="content content1">
+	 	 <div class="easyui-panel" title="角色信息" style="width:700px;height:200px;padding:10px;">
+			<div style="margin-bottom:20px">
+				<div>角色:</div>
+				<input id="id" name="id" type="hidden" value="${role.id}">
+				<input id="role" name="role" class="easyui-textbox" value="${role.role}" style="width:50%;height:32px">
+			</div>
+			<div style="margin-bottom:20px">
+				<div>描述:</div>
+				<input id="remark" name="remark" class="easyui-textbox" value="${role.remark}" style="width:50%;height:32px">
+			</div>
+			
+			<input id="rData" type="hidden" value="${jsonData}">
+	     </div>
 	
 		 <div style="margin:20px 0;">
 	        <a href="#" class="easyui-linkbutton" style="width: 90px;height: 30px" onclick="collapseAll()">全部收起</a>
 	        <a href="#" class="easyui-linkbutton" style="width: 90px;height: 30px" onclick="expandAll()">全部展开</a>
 	        <a href="#" class="easyui-linkbutton" style="width: 90px;height: 30px" onclick="toEditDialog()">编辑</a>
-	    </div>
-	
-		<div class="easyui-panel" style="padding:5px">
+	        <a href="#" class="easyui-linkbutton" style="width: 90px;height: 30px" onclick="toHasChosen()">已选择的</a>
+	        
+	        <div class="easyui-panel" style="padding:5px">
        		<ul id="menuTree" class="easyui-tree"></ul>
-   		</div>
+   			</div>
+	    </div>
 	</div>
 </body>
 </html>

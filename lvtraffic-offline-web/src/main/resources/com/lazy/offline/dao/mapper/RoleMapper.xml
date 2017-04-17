@@ -19,8 +19,8 @@
 	
 	<select id="getById" resultType="com.lazy.offline.model.Role">
 				SELECT id,role,remark
-				FROM cpsx_sys_dim_role r 
-				WHERE id={#id}
+				FROM cpsx_sys_dim_role
+				WHERE id=#{id}
 	</select>
 	
 	

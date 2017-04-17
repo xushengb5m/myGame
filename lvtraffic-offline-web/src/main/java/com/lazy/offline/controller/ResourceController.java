@@ -58,8 +58,8 @@ public class ResourceController {
 				resourcesResult.add(dmpResource);
 			}
 		}
-		String selectedResourceIds = request
-				.getParameter("selectedResourceIds");
+		String selectedResourceIds = request.getParameter("selectedResourceIds");
+		
 		if (StringUtils.isNotBlank(selectedResourceIds)) {
 			selectedResourceIds = selectedResourceIds.trim();
 			String[] resourceIdArray = selectedResourceIds.split(",");
