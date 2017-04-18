@@ -40,14 +40,13 @@
     			success : function(data) {
     				for(var i=0;i<data.length;i++){
     					var node = $("#menuTree").tree("find",data[i]);
-    					console.info(node.ismenu);
-    					if(node.ismenu=="n"){
-    						$("#menuTree").tree("check",node.target);
-    					}
+    					$("#menuTree").tree("check",node.target);
+    					var parentNode = $("#menuTree").tree("getParent",node.target);
+    					$("#menuTree").tree("expand",node.target);
+    					$("#menuTree").tree("expand",parentNode.target);
     				}
     			}
     		});
-			
 		}
 		
 		function collapseAll(){
@@ -101,15 +100,19 @@
 			<input id="rData" type="hidden" value="${jsonData}">
 	     </div>
 	
-		 <div style="margin:20px 0;">
-	        <a href="#" class="easyui-linkbutton" style="width: 90px;height: 30px" onclick="collapseAll()">全部收起</a>
-	        <a href="#" class="easyui-linkbutton" style="width: 90px;height: 30px" onclick="expandAll()">全部展开</a>
-	        <a href="#" class="easyui-linkbutton" style="width: 90px;height: 30px" onclick="toEditDialog()">编辑</a>
-	        <a href="#" class="easyui-linkbutton" style="width: 90px;height: 30px" onclick="toHasChosen()">已选择的</a>
-	        
-	        <div class="easyui-panel" style="padding:5px">
-       		<ul id="menuTree" class="easyui-tree"></ul>
-   			</div>
+	 	 <div class="easyui-panel" title="资源信息" style="width:100%;">
+			 <div style="margin:20px 20px;">
+		        <a href="#" class="easyui-linkbutton" style="width: 90px;height: 30px" onclick="collapseAll()">全部收起</a>
+		        <a href="#" class="easyui-linkbutton" style="width: 90px;height: 30px" onclick="expandAll()">全部展开</a>
+		        <a href="#" class="easyui-linkbutton" style="width: 90px;height: 30px" onclick="toEditDialog()">编辑</a>
+		        &nbsp;&nbsp;&nbsp;&nbsp;
+		        <a href="#" class="easyui-linkbutton" style="width: 90px;height: 30px" onclick="toHasChosen()">已选择的</a>
+		        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'" style="width:90px;height:30px" onclick="toSaveChosen()">保存</a>
+		        
+		        <div class="easyui-panel" style="padding:20px">
+	       		<ul id="menuTree" class="easyui-tree"></ul>
+	   			</div>
+		    </div>
 	    </div>
 	</div>
 </body>

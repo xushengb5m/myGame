@@ -4,8 +4,8 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lazy.offline.dao.mapper.RoleResourceMapper">
 	
-	<select id="selectResourceIdByRoleId" resultType="java.lang.Integer">
-				SELECT r.id
+	<select id="selectResourceIdByRoleId" resultType="java.util.HashMap">
+				SELECT r.id,r.parent_id AS topId
 				FROM cpsx_sys_map_role_resource m
 				LEFT JOIN cpsx_sys_dim_resource r
 				ON m.resource_id=r.id
