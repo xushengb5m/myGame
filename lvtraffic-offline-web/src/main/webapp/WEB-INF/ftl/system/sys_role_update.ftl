@@ -163,7 +163,6 @@
 		});
 	
         
-        //
         function getParameters(){
            return  {
                'email':$("#email").val(),

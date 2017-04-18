@@ -77,8 +77,6 @@
     				alert(data.errCode);
     			}
     		});
-			
-			
 		}
 		
   </script>

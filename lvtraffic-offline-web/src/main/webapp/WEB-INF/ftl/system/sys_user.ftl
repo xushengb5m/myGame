@@ -168,7 +168,7 @@
                     }
                 }
 			});
-		} 
+		}
 		
 		//修改
 		function update(id) {

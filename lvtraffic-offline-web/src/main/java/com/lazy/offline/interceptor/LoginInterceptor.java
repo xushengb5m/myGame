@@ -16,6 +16,7 @@ import com.lazy.offline.constant.CacheConstant;
 import com.lazy.offline.constant.CookieKeyConstant;
 import com.lazy.offline.model.User;
 import com.lazy.offline.service.cache.CacheMapService;
+import com.lazy.offline.service.impl.InitDmpServiceImpl;
 import com.lazy.offline.utils.WebCookieComponent;
 
 
@@ -30,6 +31,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter implements Servl
 	
 	@Autowired
 	private CacheMapService cacheMapService;
+	
+	@Autowired
+	private InitDmpServiceImpl initDmpService;
+	
 
 
 	/*
@@ -51,6 +56,12 @@ public class LoginInterceptor extends HandlerInterceptorAdapter implements Servl
 				String last_login_cookie = (String)cacheMapService.getCache(CacheConstant.USER_PREFIX + user.getId());
 				if (StringUtils.isNotBlank(last_login_cookie)
 						&& StringUtils.equalsIgnoreCase(last_login_cookie,cookie.getValue())) {
+					
+					if (sc.getAttribute(CacheConstant.CPSX_MENU) == null
+							|| sc.getAttribute(CacheConstant.CPSX_MENU_TOP) == null) {
+						initDmpService.loadMenu(user.getRoleId());
+					}
+					
 					return true;
 				}
 			}

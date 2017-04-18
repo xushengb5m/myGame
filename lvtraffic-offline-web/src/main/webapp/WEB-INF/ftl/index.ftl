@@ -52,52 +52,22 @@ top.location = "${request.contextPath}/userLogout";
 	<span id="oper_aside" class="icon-arrow-left"></span>
     <span id="oper_set" class="icon-set"></span>
 	<div class="aside_box">
-		<#if menuList??>
-			<ul id="aside_list" class="aside_list ul_oper_list">
-			<#list menuList as obj>
-				<li class="oper_item"><a target="iframeMain" ><span class="icon-tag"></span>${obj.name}</a>
-            	<ul class="ul_oper_list"> 
-				<#list obj.subList as subObj>
-					<li class="oper_item"><a target="iframeMain" href="${subObj.url?if_exists}"><span class="icon-tag"></span>${subObj.name}</a></li>
-				</#list>
+		<#if Application.cpsx_menu_top??>
+			<#list Application.cpsx_menu_top as topMenu>
+				<ul class="ul_oper_list">
+	            	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/system/toResourceList"><span class="icon-tag_1"></span>${topMenu.resourceName}</a></li>
+	            </ul>
+				<ul id="aside_list" class="aside_list ul_oper_list">
+				<#if Application.cpsx_menu??>
+					<#list Application.cpsx_menu?keys as testKey>  
+							<li class="oper_item"><a target="iframeMain" href=""><span class="icon-tag_1"></span>${testKey}...${topMenu.id}</a></li>
+					</#list>
+				</#if>
 				</ul>
-				</li>
 			</#list>
-			</ul>
-		<#else>
-		<ul id="aside_list" class="aside_list ul_oper_list">
-			<li class="oper_item"><a target="iframeMain"><span class="icon-tag_1"></span>活动管理</a>
-                <ul class="ul_oper_list">
-                	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/promotionMain/toPromotionMainList"><span class="icon-tag_2"></span>活动列表</a></li>
-                    <li class="oper_item"><a target="iframeMain" href="${request.contextPath}/promotion/toPromotionList"><span class="icon-tag_1"></span>子活动列表</a></li>
-                    <li class="oper_item"><a target="iframeMain" href="${request.contextPath}/promotionStatis/toCountList"><span class="icon-tag_1"></span>活动统计</a></li>
-                </ul>
-            </li>
-            
-    
-            <li class="oper_item"><a target="iframeMain" ><span class="icon-tag_2"></span>保险管理</a>
-                <ul class="ul_oper_list">
-                	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/insurance/toInsuranceInfoListPage"><span class="icon-tag_1"></span>保险产品列表</a></li>
-	            	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/insurance/toAddInsurancePage"><span class="icon-tag_1"></span>保险产品维护</a></li>
-	            	<!--<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/insurance/toInsuranceOrderListPage"><span class="icon-tag_1"></span>投保列表</a></li>-->
-	            	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/insurance/toInsuranceOrdersPage"><span class="icon-tag_1"></span>保单列表</a></li>
-	            	<!--<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/insurance/toArtificialInsuredPage"><span class="icon-tag_1"></span>人工投保</a></li>-->
-                </ul>
-            </li>
-            
-            <li class="oper_item"><a target="iframeMain" ><span class="icon-tag_2"></span>增值服务</a>
-                <ul class="ul_oper_list">
-                	<li class="oper_item"><a target="iframeMain"  href="${request.contextPath}/vasProduct/toVasProductList"><span class="icon-tag_1"></span>产品管理</a></li>
-                    <li class="oper_item"><a target="iframeMain" href="${request.contextPath}/vasProductType/toVasProductTypeList"><span class="icon-tag_1"></span>产品类型</a></li>               
-                     <li class="oper_item"><a target="iframeMain"  href="${request.contextPath}/vasProduct/toCouponProductPage"><span class="icon-tag_1"></span>优惠券产品管理</a></li>
-                     <li class="oper_item"><a target="iframeMain" href="${request.contextPath}/vasOrder/toOrderList"><span class="icon-tag_1"></span>订单列表</a></li>
-                       <li class="oper_item"><a target="iframeMain"  href="${request.contextPath}/vasOrder/toCouponOrderList"><span class="icon-tag_1"></span>优惠券产品订单管理</a></li>
-                    <li class="oper_item"><a target="iframeMain" href="${request.contextPath}/vasVoucher/toVoucherList"><span class="icon-tag_1"></span>核销码列表</a></li>
-                       <li class="oper_item"><a target="iframeMain" href="${request.contextPath}/vasOrder/toVasExpOrderList"><span class="icon-tag_1"></span>订单异常操作记录</a></li>
-                    
-                </ul>
-            </li>
-            <li class="oper_item"><a target="iframeMain" ><span class="icon-tag_2"></span>系统管理</a>
+		</#if>
+		
+        <li class="oper_item"><a target="iframeMain" ><span class="icon-tag_2"></span>系统管理</a>
             <ul class="ul_oper_list">
             	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/system/toResourceList"><span class="icon-tag_1"></span>资源管理</a></li>
             	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/system/toSysUserList"><span class="icon-tag_1"></span>用户管理</a></li>
@@ -106,8 +76,6 @@ top.location = "${request.contextPath}/userLogout";
             </ul>
         </li>
 		</ul>
-				
-		</#if>
 	</div>
 </div>
 <!-- //边栏 -->

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import com.lazy.offline.constant.CookieKeyConstant;
 import com.lazy.offline.dao.mapper.SystemUserMapper;
 import com.lazy.offline.model.User;
 import com.lazy.offline.service.cache.CacheMapService;
+import com.lazy.offline.service.impl.InitDmpServiceImpl;
 import com.lazy.offline.utils.CPCDigestUtils;
 import com.lazy.offline.utils.WebCookieComponent;
 
@@ -31,6 +33,11 @@ public class LoginController {
 	
 	@Autowired
 	private SystemUserMapper systemUserMapper;
+	
+	@Autowired
+	private InitDmpServiceImpl initDmpService;
+	
+	protected Logger logger = Logger.getLogger(LoginController.class);
 	
 	
 	@RequestMapping(value = "/searchUserLogin")
@@ -81,6 +88,8 @@ public class LoginController {
 
 									// 向缓存放入安全密匙码
 									cacheMapService.putCache(CacheConstant.USER_PREFIX+sysUser.getId(),loginUserCookie.getValue());
+									
+									initDmpService.loadMenu(sysUser.getRoleId());
 
 									model.addAttribute("loginUser", sysUser);
 									// 加载可用菜单
@@ -94,7 +103,7 @@ public class LoginController {
 						msg="重新登录";
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("登录异常", e);
 				}
 				return msg;
 	}
