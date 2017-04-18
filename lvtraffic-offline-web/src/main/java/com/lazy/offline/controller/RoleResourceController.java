@@ -70,6 +70,8 @@ public class RoleResourceController {
 				}else{
 					em.setErrCode(ResultStatus.FAIL.name());
 				}
+		}else{
+			int deleteSuccess = roleResourceMapper.deleteRoleResourceByRoleId(roleId);
 		}
 		return em;
 	}

@@ -23,6 +23,14 @@
 				WHERE id=#{id}
 	</select>
 	
+	<select id="queryIdByRole" resultType="java.lang.Integer">
+			SELECT id
+				FROM cpsx_sys_dim_role
+				WHERE role=#{role}
+				AND remark=#{remark}
+	
+	</select>
+	
 	
 	<insert id="insert" useGeneratedKeys="true" keyColumn="id">
 		INSERT INTO cpsx_sys_dim_role (
@@ -32,8 +40,8 @@
 		)
 		VALUES
 		(
-			#{condition.role}, 
-			#{condition.remark},
+			#{role}, 
+			#{remark},
 			now()
 		)
 	</insert>

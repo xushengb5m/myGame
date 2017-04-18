@@ -1,181 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
 
+<html>
+  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-
-    <link rel="stylesheet" href="${request.contextPath}/css/trip-list.css">
-    <link rel="stylesheet" href="${request.contextPath}/css/order-details.css" type="text/css"/>
-    <link type="text/css" rel="stylesheet" href="${request.contextPath}/js/resources/jquery-ui-1.8.11/css/redmond/jquery-ui-1.8.11.css"/>
-    <link type="text/css" rel="stylesheet" href="${request.contextPath}/js/resources/jqGrid/css/ui.jqgrid.css"/>
-    <script src="${request.contextPath}/js/resources/jqGrid/js/jquery-1.7.2.min.js"> </script>
-    <script src="${request.contextPath}/js/resources/jquery-ui-1.8.10.custom.min.js"></script>
-    <script src="${request.contextPath}/js/resources/jqGrid/src/i18n/grid.locale-cn.js"></script>
-    <script src="${request.contextPath}/js/resources/jqGrid/js/jquery.jqGrid.src.js"></script>
-    <script type="text/javascript" src="${request.contextPath}/js/My97DatePicker/WdatePicker.js"></script>
-    <script type="text/javascript" src="${request.contextPath}/js/jquery.form.js"></script>
-
-    <style>
-        .vas_add{
-
-        }
-        div.vas_add > span {
-            display: inline-block;
-            width: 100px;
-            text-align:right;
-        }
-        div.vas_add  input {
-            height: 20px;
-            width: 250px;
-        }
-        div.vas_add  select {
-            height: 20px;
-            width: 250px;
-        }
-        .no_border{
-            border-left:0px;
-            border-top: 0px;
-            border-right: 0px;
-            border-bottom: 0px;
-        }
-    </style>
-</head>
-<body>
-<div class="content content1">
-    <form id="edit_vas_product_form" name="edit_vas_product_form" enctype="multipart/form-data">
-        <div class="breadnav"><span>用户管理</span>> 新增用户</div>
-        <div class="infor1" id="conditionDiv">
-            <div class="order message">
-                <div class="main">
-                    <div style="background-color: #88b6d9 ;width: 120px; text-align:center"><label >基本信息</label></div>
-                    <div class="vas_add">
-                        <span><span style="color: red">*</span>用户邮箱:</span>&nbsp;&nbsp;
-                        <input type="text" id="email" name="email"/><br>
-                        <span><span style="color: red">*</span>密        码:</span>&nbsp;&nbsp;
-                        <input type="text" id="password" type="password" name="password"/><br>
-                        <span><span style="color: red">*</span>用户姓名:</span>&nbsp;&nbsp;
-                        <input id ="userName" name="userName" /><br>
-                        <span><span style="color: red">*</span>用户角色:</span>&nbsp;&nbsp;
-                        <select id ="roleName" name="roleName"/>
-                        	<#list roles as val>  
-							  		 <option value="${val.role}" >${val.remark}</option>
-							</#list>
-						</select>
-						<br>
-                    </div>
-					
-                    <div style="background-color: #88b6d9 ;width: 120px; text-align:center"><label>可选信息</label></div>
-                    <div class="vas_add">
-                        <span><span style="color: red">*</span>账户类型:</span>&nbsp;&nbsp;
-                        <input type="text" id="userType" name="userType"  value=""/><br>
-                        <span><span style="color: red">*</span>QQ:</span>&nbsp;&nbsp;
-                        <input type="text" id="qq" name="qq" value=""/><br>
-                        <span><span style="color: red">*</span>住址:</span>&nbsp;&nbsp;
-                        <input id ="address" name="address" value=""/><br>
-                        <span><span style="color: red">*</span>手机号码:</span>&nbsp;&nbsp;
-                        <input id ="mobTel" name="mobTel" value=""/>
-						<br>
-                    </div>
-                    <input id="productId" name="productId" type="hidden" value="">
-                    <input id="productSaleRuleId" name="productSaleRuleId" type="hidden" value="">
-                    
-                    <div style="margin-left: 30%;margin-top: 30px">
-                        <input id="bt_save_user" style="width: 90px;height: 30px" type="button" value="保存">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-</body>
-<script>
-		$(document).ready(function() { 
-			$('input[valid]').each(function(){ 
-			var $this = $(this); 
-			var valid = $this.attr('valid');  
-			if(valid=='num'){ 
-					$this.blur(function(){ 
-					onlyNum($this[0]); 
-				}); 
-			} else if(valid=='decimal'){ 
-					$this.blur(function(){ 
-					onlyDecimal($this[0]); 
-				}); 
-			} 
-			}); 
-		}); 
-
-		function onlyNum(obj){  
-		if(obj.value!=''){
-			 var desc = $(obj).attr('desc'); 
-			 var reg = /^[1-9]*[1-9][0-9]*$/;
-			 if(!reg.test(obj.value)){
-				 alert(""+desc+"必须是正整数");
-				 obj.value='';
-				 obj.focus();
-				 return ;
-			 }
-		 }
-		}  
-		
-		function onlyDecimal(obj){  
-		if(obj.value!=''){
-			 var desc = $(obj).attr('desc'); 
-			 var reg = /^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/; 
-			 if(!reg.test(obj.value)){
-				 alert(""+desc+"必须是非负数");
-				 obj.value='';
-				 obj.focus();
-				 return ;
-			 }
-		 }
-		}  
-
-		$("#bt_save_user").on("click",function(){ 
-				if($("#email").val() == ""){
-					alert("邮箱不能为空!");
-					return;
-				} 
-				if($("#userName").val() == ""){
-					alert("用户名不能为空!");
-					return;
-				} 
-				if($("#roleName").val() == ""){
-					alert("角色不能为空!");
-					return;
-				} 
-		
-	            $("#edit_vas_product_form").ajaxSubmit({
-	                type: "post",
-	                url: "${requestContextPath}/system/addSysUser",
-	                data:getParameters(),
-	                success: function (data) {
-	                    alert(data.message);
-	                },
-	                error: function (msg) {
-	                    alert("编辑用户失败:"+msg);
-	                }
-	            });
-		});
+    <link rel="stylesheet" type="text/css" href="${request.contextPath}/css/icon.css">
+    <link rel="stylesheet" type="text/css" href="${request.contextPath}/css/easyui.css">
+    <link rel="stylesheet" type="text/css" href="${request.contextPath}/css/demo.css">
 	
-        
-        //
-        function getParameters(){
-           return  {
-               'email':$("#email").val(),
-               'userName':$("#userName").val(),
-               'password':$("#password").val(),
-               'roleName':$("#roleName").val(),
-               'userType':$("#userType").val(),
-               'qq':$("#qq").val(),
-               'address':$("#address").val(),
-               'mobTel':$("#mobTel").val()
-           };
-        }
-	
+	<script src="${request.contextPath}/js/easyui/jquery.min.js"></script>
+	<script src="${request.contextPath}/js/easyui/jquery.easyui.min.js"></script>
     
-</script>
+    <script type="text/javascript">
+    
+	    $(function (){
+	    	initTree();
+	    });    
+		
+		function initTree() {
+			$.ajax({
+    			url : "${request.contextPath}/system/loadResourceData",
+    			type : "POST",
+    			success : function(data) {
+    				$("#menuTree").tree({
+    					data : data,
+    					animate:true,
+    					lines:true,
+    					checkbox:true
+    				});
+    				$('#menuTree').tree({cascadeCheck:$(this).is(':checked')});
+    			}
+    			
+    		});
+		}
+		
+		function collapseAll(){
+            $('#menuTree').tree('collapseAll');
+        }
+        function expandAll(){
+            $('#menuTree').tree('expandAll');
+        }
+        function expandTo(){
+            $('#menuTree').tree('expandTo', node.target).tree('select', node.target);
+        }
+			
+		
+		function toSave(){
+			var role = $("#role").val();
+			var remark = $("#remark").val();
+			if(role=="" || role==null || remark=="" ||remark==null){
+				alert("请输入角色信息");
+				return;
+			}
+			var nodes = $('#menuTree').tree('getChecked');
+			var ids = '';
+			for(var i=0; i<nodes.length; i++){
+				if (ids != '') ids += ',';
+				ids += nodes[i].id;
+			}
+			
+			$.ajax({
+    			url : "${request.contextPath}/system/addRoleAndResource",
+    			data:{
+    				"role":role,
+    				"remark":remark,
+    				"resourceIdList":ids
+    			},
+    			type : "POST",
+    			success : function(data) {
+    				alert(data.errCode);
+    			}
+    		});
+			
+			
+		}
+		
+  </script>
+    
+  </head>
+  <body>
+	<div class="content content1">
+	 	 <div class="easyui-panel" title="角色信息" style="width:700px;height:200px;padding:10px;">
+			<div style="margin-bottom:20px">
+				<div>角色:</div>
+				<input id="role" name="role" class="easyui-textbox" style="width:50%;height:32px">
+			</div>
+			<div style="margin-bottom:20px">
+				<div>描述:</div>
+				<input id="remark" name="remark" class="easyui-textbox" style="width:50%;height:32px">
+			</div>
+	     </div>
+	
+	 	 <div class="easyui-panel" title="资源信息" style="width:100%;">
+			 <div style="margin:20px 20px;">
+		        <a href="#" class="easyui-linkbutton" style="width: 90px;height: 30px" onclick="collapseAll()">全部收起</a>
+		        <a href="#" class="easyui-linkbutton" style="width: 90px;height: 30px" onclick="expandAll()">全部展开</a>
+		        
+		        &nbsp;&nbsp;&nbsp;&nbsp;
+		        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'" style="width:90px;height:30px" onclick="toSave()">保存</a>
+		        
+		        <div class="easyui-panel" style="padding:20px">
+	       		<ul id="menuTree" class="easyui-tree"></ul>
+	   			</div>
+		    </div>
+	    </div>
+	</div>
+</body>
 </html>
-
-
-

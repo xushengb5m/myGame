@@ -48,7 +48,7 @@
 			document.getElementById("myForm").reset()
 		}    
 		
-		function addSysUser() {  
+		function addRole() {  
 				window.open("${request.contextPath}/system/toAddRolePage"); 
 		}   
 
@@ -209,14 +209,12 @@
   <body>
   
 	<div class="content content1">
-	  <div class="breadnav"><span>首页</span> > 用户列表</div>
+	  <div class="breadnav"><span>首页</span> > 角色列表</div>
 	  <form id="myForm" autocomplete="off" >
 	  <div class="infor1">
 		 <div class="product message">
 			<div class="main">
 				<div class="part">
-					<span>用户名：</span><input type="text" name="userName" id="userName">
-					<span>邮箱：</span><input name="email" id="email">
 					<span>是否有效：</span>
 					<select name="status" id="status">
 							<option value="1" selected="selected">有效</option>
@@ -230,7 +228,7 @@
 	  
   	<div class="click">
   		<a href="javascript:;"><div class="button" onclick="query()">查询</div></a> 
-  		<a href="javascript:;"><div class="button" onclick="addSysUser()">新增</div></a> 
+  		<a href="javascript:;"><div class="button" onclick="addRole()">新增</div></a> 
 	    <a href="javascript:;"><div class="button" onclick="reset()">清空</div></a>
 	</div>
 		
