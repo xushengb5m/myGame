@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +42,10 @@ public class RoleController {
 	private BaseResultDto<Role> loadResourceData(Role role,Pagination pg,Model model) {
 		BaseQueryDto<Role> baseQuery = new BaseQueryDto<Role>(pg,role);
 		List<Role> resList = roleMapper.query(baseQuery);
-		BaseResultDto<Role> baseResult = new BaseResultDto<Role>(resList);
+		int records = roleMapper.count(baseQuery);
+		pg.setRecords(records);
+		pg.countRecords(records);
+		BaseResultDto<Role> baseResult = new BaseResultDto<Role>(pg,resList);
 		return baseResult;
 	}
 	
@@ -59,16 +63,20 @@ public class RoleController {
 		if(insertSuccess>0){
 			int idNew = roleMapper.queryIdByRole(role);
 			String idString = request.getParameter("resourceIdList");
-			String[] idArray = idString.split(",");
-			List<String> param = new ArrayList<String>();
-			for(int i=0;i<idArray.length;i++){
-				param.add(idArray[i]);
-			}
-			int updateSuccess = roleResourceMapper.batchInsertRoleResource(idNew,param);
-			if(updateSuccess>0){
-				em.setErrCode(ResultStatus.SUCCESS.name());
+			if(StringUtils.isNotBlank(idString)){
+				String[] idArray = idString.split(",");
+				List<String> param = new ArrayList<String>();
+				for(int i=0;i<idArray.length;i++){
+					param.add(idArray[i]);
+				}
+				int updateSuccess = roleResourceMapper.batchInsertRoleResource(idNew,param);
+				if(updateSuccess>0){
+					em.setErrCode(ResultStatus.SUCCESS.name());
+				}else{
+					em.setErrCode(ResultStatus.FAIL.name());
+				}
 			}else{
-				em.setErrCode(ResultStatus.FAIL.name());
+				em.setErrCode(ResultStatus.SUCCESS.name());
 			}
 		}
 		return em;

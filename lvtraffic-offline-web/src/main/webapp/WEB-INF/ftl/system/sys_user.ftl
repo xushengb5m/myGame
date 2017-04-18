@@ -156,7 +156,6 @@
                     	var id=ids[i];
                     	var rowData = $('#sysUserList').jqGrid('getRowData',id);
 						var insStatus = rowData.status;
-						console.info(insStatus)
                          if(insStatus=='有效')
                         {
 							operateClick= '<a href="javascript:;" style="color:blue" onclick="update('+id+')" >修改</a> <a href="#" style="color:blue" onclick="deleteUser('+id+')" >设为无效</a> ';

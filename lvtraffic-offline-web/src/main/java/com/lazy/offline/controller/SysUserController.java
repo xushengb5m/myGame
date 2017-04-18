@@ -41,7 +41,10 @@ public class SysUserController {
 	private BaseResultDto<User> loadResourceData(User user,Pagination pg,Model model) {
 		BaseQueryDto<User> baseQuery = new BaseQueryDto<User>(pg,user);
 		List<User> userList= systemUserMapper.query(baseQuery);
-		BaseResultDto<User> baseResult = new BaseResultDto<User>(userList);
+		int records = systemUserMapper.count(baseQuery);
+		pg.setRecords(records);
+		pg.countRecords(records);
+		BaseResultDto<User> baseResult = new BaseResultDto<User>(pg,userList);
 		return baseResult;
 	}
 

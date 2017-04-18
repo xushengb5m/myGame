@@ -43,6 +43,16 @@
 		<include refid="MYSQL.pagination" />
 	</select>
 	
+	<select id="count" resultType="java.lang.Integer">
+		SELECT COUNT(1)
+		FROM cpsx_sys_dim_user u 
+		LEFT JOIN cpsx_sys_dim_role r on u.role_name = r.role 
+		<include refid="queryCondition" />
+		ORDER BY u.id DESC
+		<include refid="MYSQL.pagination" />
+	
+	</select>
+	
 	<select id="getById" resultType="com.lazy.offline.model.User">
 		SELECT <include refid="columns" />
 		FROM cpsx_sys_dim_user u 
