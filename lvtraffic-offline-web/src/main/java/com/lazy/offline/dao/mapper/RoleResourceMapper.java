@@ -12,6 +12,10 @@ import com.lazy.offline.model.base.BaseQueryDto;
 
 public interface RoleResourceMapper extends BaseMapper<Role, BaseQueryDto<?>>{
 	
-	List<Map<String,Integer>> selectResourceIdByRoleId(@Param("id")int id);
+	List<Integer> selectResourceIdByRoleId(@Param("id")int id);
+
+	int batchInsertRoleResource(@Param("roleId")int roleId, @Param("param")List<String> param);
+
+	int deleteRoleResourceByRoleId(@Param("roleId")int roleId);
 
 }

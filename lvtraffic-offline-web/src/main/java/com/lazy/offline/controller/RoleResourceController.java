@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.net.ssl.SSLEngineResult.Status;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ import com.lazy.offline.dao.mapper.RoleMapper;
 import com.lazy.offline.dao.mapper.RoleResourceMapper;
 import com.lazy.offline.model.Resource;
 import com.lazy.offline.model.Role;
+import com.lazy.offline.model.base.ErrorMessage;
+import com.lazy.offline.model.base.ResultStatus;
 import com.lazy.offline.utils.JSONMapper;
 
 @Controller
@@ -44,23 +48,30 @@ public class RoleResourceController {
 	@RequestMapping(value = "/toRoleResource/{id}")
 	@ResponseBody
 	private List<Integer> toRoleResource(@PathVariable int id) {
-		List<Map<String,Integer>> mapList = roleResourceMapper.selectResourceIdByRoleId(id);
-		List<Integer> idList = new ArrayList<Integer>();
-		List<Integer> topIdList = new ArrayList<Integer>();
-		for(Map<String,Integer> map : mapList){
-			idList.add(map.get("id"));
-			topIdList.add(map.get("topId"));
-		}
-		for(int i=0;i<idList.size();i++){
-			Integer ide = idList.get(i);
-			for(int j=0;j<topIdList.size();j++){
-				if(topIdList.get(j)==ide){
-					idList.remove(i);
-					break;
-				}
-			}
-		}
+		List<Integer> idList = roleResourceMapper.selectResourceIdByRoleId(id);
 		return idList;
+	}
+	
+	@RequestMapping(value = "/saveRoleResource/{roleId}")
+	@ResponseBody
+	private ErrorMessage saveRoleResource(HttpServletRequest request,@PathVariable int roleId) {
+		ErrorMessage em = new ErrorMessage();
+		String idString = request.getParameter("resourceIdList");
+		if(StringUtils.isNotBlank(idString)){
+			int deleteSuccess = roleResourceMapper.deleteRoleResourceByRoleId(roleId);
+				String[] idArray = idString.split(",");
+				List<String> param = new ArrayList<String>();
+				for(int i=0;i<idArray.length;i++){
+					param.add(idArray[i]);
+				}
+				int updateSuccess = roleResourceMapper.batchInsertRoleResource(roleId,param);
+				if(updateSuccess>0){
+					em.setErrCode(ResultStatus.SUCCESS.name());
+				}else{
+					em.setErrCode(ResultStatus.FAIL.name());
+				}
+		}
+		return em;
 	}
 	
 

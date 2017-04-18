@@ -27,8 +27,10 @@
     					lines:true,
     					checkbox:true
     				});
+    				$('#menuTree').tree({cascadeCheck:$(this).is(':checked')});
     				initRoleResource();
     			}
+    			
     		});
 		}
 		
@@ -40,10 +42,9 @@
     			success : function(data) {
     				for(var i=0;i<data.length;i++){
     					var node = $("#menuTree").tree("find",data[i]);
+    					//console.info(node);
     					$("#menuTree").tree("check",node.target);
-    					var parentNode = $("#menuTree").tree("getParent",node.target);
     					$("#menuTree").tree("expand",node.target);
-    					$("#menuTree").tree("expand",parentNode.target);
     				}
     			}
     		});
@@ -59,24 +60,23 @@
             $('#menuTree').tree('expandTo', node.target).tree('select', node.target);
         }
 			
-		function toEditDialog(){
-	            if (!node){
-	                alert("请选择一个节点!");
-	            }
-	            var s = node.text;
-                if (node.attributes){
-                    s += ","+node.attributes.p1+","+node.attributes.p2;
-                }
-                alert(s);
-	    }
 		
-		function toHasChosen(){
-			var allNodes = $('#menuTree').tree('getRoots');
-			for(var i=0;i<allNodes.length;i++){
-				console.info(allNodes[i].children);
-				console.info(allNodes[i].children.length);
-				console.info(allNodes[i].checkState);
+		function toSave(){
+			var nodes = $('#menuTree').tree('getChecked');
+			var ids = '';
+			for(var i=0; i<nodes.length; i++){
+				if (ids != '') ids += ',';
+				ids += nodes[i].id;
 			}
+			
+			$.ajax({
+    			url : "${request.contextPath}/system/saveRoleResource/"+$("#id").val(),
+    			data:{"resourceIdList":ids},
+    			type : "POST",
+    			success : function(data) {
+    				alert(data.errCode);
+    			}
+    		});
 			
 			
 		}
@@ -90,24 +90,21 @@
 			<div style="margin-bottom:20px">
 				<div>角色:</div>
 				<input id="id" name="id" type="hidden" value="${role.id}">
-				<input id="role" name="role" class="easyui-textbox" value="${role.role}" style="width:50%;height:32px">
+				<input id="role" name="role" readonly="readonly" class="easyui-textbox" value="${role.role}" style="width:50%;height:32px">
 			</div>
 			<div style="margin-bottom:20px">
 				<div>描述:</div>
-				<input id="remark" name="remark" class="easyui-textbox" value="${role.remark}" style="width:50%;height:32px">
+				<input id="remark" name="remark" readonly="readonly" class="easyui-textbox" value="${role.remark}" style="width:50%;height:32px">
 			</div>
-			
-			<input id="rData" type="hidden" value="${jsonData}">
 	     </div>
 	
 	 	 <div class="easyui-panel" title="资源信息" style="width:100%;">
 			 <div style="margin:20px 20px;">
 		        <a href="#" class="easyui-linkbutton" style="width: 90px;height: 30px" onclick="collapseAll()">全部收起</a>
 		        <a href="#" class="easyui-linkbutton" style="width: 90px;height: 30px" onclick="expandAll()">全部展开</a>
-		        <a href="#" class="easyui-linkbutton" style="width: 90px;height: 30px" onclick="toEditDialog()">编辑</a>
+		        
 		        &nbsp;&nbsp;&nbsp;&nbsp;
-		        <a href="#" class="easyui-linkbutton" style="width: 90px;height: 30px" onclick="toHasChosen()">已选择的</a>
-		        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'" style="width:90px;height:30px" onclick="toSaveChosen()">保存</a>
+		        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'" style="width:90px;height:30px" onclick="toSave()">保存</a>
 		        
 		        <div class="easyui-panel" style="padding:20px">
 	       		<ul id="menuTree" class="easyui-tree"></ul>

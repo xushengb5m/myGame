@@ -131,14 +131,13 @@
                     	var id=ids[i];
                     	var rowData = $('#roleList').jqGrid('getRowData',id);
 						var insStatus = rowData.status;
-						console.info(insStatus)
                          if(insStatus=='有效')
                         {
-							operateClick= '<a href="${request.contextPath}/system/toAccessList/'+id+'" style="color:blue">修改</a> <a href="#" style="color:blue" onclick="deleteUser('+id+')" >设为无效</a> ';
+							operateClick= '<a href="${request.contextPath}/system/toAccessList/'+id+'" style="color:blue">修改权限</a> <a href="${request.contextPath}/system/toAccessList/'+id+'" style="color:blue">编辑</a> <a href="#" style="color:blue" onclick="deleteUser('+id+')" >设为无效</a> ';
 						}
 						else
 						{	
-							operateClick= '<a href="${request.contextPath}/system/toAccessList/'+id+'" style="color:blue">修改</a> <a href="#" style="color:blue" onclick="effectiveById('+id+')" >设为有效</a> ';
+							operateClick= '<a href="${request.contextPath}/system/toAccessList/'+id+'" style="color:blue">修改权限</a> <a href="${request.contextPath}/system/toAccessList/'+id+'" style="color:blue">编辑</a> <a href="#" style="color:blue" onclick="effectiveById('+id+')" >设为有效</a> ';
 						}
                         jQuery("#roleList").jqGrid('setRowData', id , {operate:operateClick});
                     }
