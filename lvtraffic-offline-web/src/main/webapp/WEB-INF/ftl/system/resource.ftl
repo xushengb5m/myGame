@@ -52,7 +52,6 @@
 	            var node = $('#menuTree').tree('getSelected');
 	            if (!node){
 	                $("#dlg").dialog("open");
-	                
 	            }
 	            if(node.ismenu=='y'){
                 	$("#parentId").combobox('select', node.id);
@@ -92,8 +91,7 @@
     					}else{
     						alert("保存失败!");
     					}
-    					
-    			} 
+    			}
     		});
 	    }
 	    
