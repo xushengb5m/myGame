@@ -41,7 +41,7 @@
             $('#menuTree').tree('expandAll');
         }
         function expandTo(id){
-            var node = $('#tt').tree('find',id);
+            var node = $('#menuTree').tree('find',id);
             $('#menuTree').tree('expandTo', node.target).tree('select', node.target);
         }
         
