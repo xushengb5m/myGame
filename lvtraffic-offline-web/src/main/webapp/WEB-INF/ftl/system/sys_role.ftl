@@ -133,11 +133,11 @@
 						var insStatus = rowData.status;
                          if(insStatus=='有效')
                         {
-							operateClick= '<a href="${request.contextPath}/system/toAccessList/'+id+'" style="color:blue">修改权限</a> <a href="${request.contextPath}/system/toAccessList/'+id+'" style="color:blue">编辑</a> <a href="#" style="color:blue" onclick="deleteUser('+id+')" >设为无效</a> ';
+							operateClick= '<a href="${request.contextPath}/system/toAccessList/'+id+'" style="color:blue">修改权限</a> <a href="${request.contextPath}/system/queryRoleDetail/'+id+'" style="color:blue">编辑</a> <a href="#" style="color:blue" onclick="deleteRole('+id+')" >删除角色</a> ';
 						}
 						else
 						{	
-							operateClick= '<a href="${request.contextPath}/system/toAccessList/'+id+'" style="color:blue">修改权限</a> <a href="${request.contextPath}/system/toAccessList/'+id+'" style="color:blue">编辑</a> <a href="#" style="color:blue" onclick="effectiveById('+id+')" >设为有效</a> ';
+							operateClick= '<a href="${request.contextPath}/system/toAccessList/'+id+'" style="color:blue">修改权限</a> <a href="${request.contextPath}/system/queryRoleDetail/'+id+'" style="color:blue">编辑</a> <a href="#" style="color:blue" onclick="effectiveById('+id+')" >删除角色</a> ';
 						}
                         jQuery("#roleList").jqGrid('setRowData', id , {operate:operateClick});
                     }
@@ -145,15 +145,6 @@
 			});
 		} 
 		
-		//修改
-		function update(id) {
-		   	window.open("${request.contextPath}/system/querySysUserDetail/"+id);
-		}
-		 
-		function qianfenwei(num) {
-			return (num.toFixed(0) + '').replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
-		}
-
 		//千分位显示金额
 		function formatAmount(cellvalue, options, rowObject) { 
 			var insuranceAmount = rowObject.insuranceAmount;
@@ -165,29 +156,10 @@
 		    return  insuranceAmount;       
     	}
 		
-		  //设置为有效
-		function effectiveById(id) {
-		   	$.ajax({
-				url : 'effectiveSysUser/'+id,
-				type:'post',
-		        dataType : "json",
-				contentType : "application/json;",
-				data : JSON.stringify({
-					id : id
-				}),
-				success: function(data){
-					if(data.status == 'VALID'){
-						alert("保险产品设置有效成功");
-						query();
-					}
-	   			}
-		    });
-		 }		
-		 
 		//删除
-		function deleteUser(id) {
+		function deleteRole(id) {
 		   	$.ajax({
-				url : 'deleteSysUser/'+id,
+				url : 'deleteRole/'+id,
 				type:'post',
 		        dataType : "json",
 				contentType : "application/json;",
@@ -195,10 +167,7 @@
 					id : id
 				}),
 				success: function(data){
-					if(data.status == 'INVALID'){
-						alert("保险产品设置无效成功");
-						query();
-					}
+					alert(data.errCode);
 	   			}
 		    });
 		 }		

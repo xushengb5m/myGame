@@ -51,5 +51,13 @@
 		)
 	</insert>
 	
+	<update id="updateById">
+		UPDATE cpsx_sys_dim_role
+		SET
+			role=#{i.role},
+			remark=#{i.remark}
+		WHERE id=#{id}
+	</update>
+	
 	
 </mapper>

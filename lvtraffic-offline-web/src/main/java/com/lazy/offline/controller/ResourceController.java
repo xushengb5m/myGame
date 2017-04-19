@@ -11,11 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lazy.offline.dao.mapper.ResourceMapper;
 import com.lazy.offline.model.Resource;
+import com.lazy.offline.model.base.ErrorMessage;
+import com.lazy.offline.model.base.ResultStatus;
 
 @Controller
 @RequestMapping("system")
@@ -61,5 +64,53 @@ public class ResourceController {
 		
 		return resourcesResult;
 	}
+	
+	@RequestMapping(value = "/addResource")
+	@ResponseBody
+	private ErrorMessage toResourceList(Resource resource) {
+		ErrorMessage msg = new ErrorMessage();
+		int isSuccess = resourceMapper.insert(resource);
+		if(isSuccess>0){
+			msg.setErrCode(ResultStatus.SUCCESS.name());
+		}else{
+			msg.setErrCode(ResultStatus.FAIL.name());
+		}
+		return msg;
+	}
+	
+	@RequestMapping(value = "/editResource/{id}")
+	@ResponseBody
+	private ErrorMessage editResource(Resource resource,@PathVariable("id")int id) {
+		ErrorMessage msg = new ErrorMessage();
+		int isSuccess = resourceMapper.updateById(id, resource);
+		if(isSuccess>0){
+			msg.setErrCode(ResultStatus.SUCCESS.name());
+		}else{
+			msg.setErrCode(ResultStatus.FAIL.name());
+		}
+		return msg;
+	}
+	
+	@RequestMapping(value = "/deleteResource/{id}")
+	@ResponseBody
+	private ErrorMessage deleteResource(@PathVariable("id")int id) {
+		ErrorMessage msg = new ErrorMessage();
+		int isHasChildren = resourceMapper.selectHasChildren(id);
+		if(isHasChildren==0){
+			int isSuccess = resourceMapper.deleteById(id);
+			if(isSuccess>0){
+				msg.setErrCode(ResultStatus.SUCCESS.name());
+			}else{
+				msg.setErrCode(ResultStatus.FAIL.name());
+			}
+		}else{
+			msg.setErrCode(ResultStatus.FAIL.name());
+			msg.setMessage("该节点仍存在子节点!");
+		}
+		return msg;
+	}
+	
 
+	
+	
 }

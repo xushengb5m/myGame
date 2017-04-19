@@ -9,6 +9,30 @@
 				r.parent_id as topid,r.cls_name as clsname,r.create_time 
 	</sql>
 	
+	<insert id="insert" useGeneratedKeys="true" keyColumn="id">
+		INSERT INTO cpsx_sys_dim_resource(
+			name,
+			url,
+			eng_name,
+			is_menu,
+			posorder,
+			parent_id,
+			cls_name,
+			create_time
+		)
+		VALUES
+		(
+			#{resourceName}, 
+			#{resourceUrl},
+			#{engName},
+			#{ismenu},
+			#{posorder},
+			#{topid},
+			#{clsname},
+			now()
+		)
+	</insert>
+	
 	<select id="queryAll" resultType="com.lazy.offline.model.Resource">
 				SELECT
 				<include refid="column"/>
@@ -19,8 +43,42 @@
 	<select id="getById" resultType="com.lazy.offline.model.Resource">
 				SELECT
 				<include refid="column"/>
-				FROM cpsx_sys_dim_resource r
-				WHERE id=#{id}
+				FROM cpsx_sys_dim_resource r 
+				WHERE id={#id}
 	</select>
+	
+	<select id="getAllMenus" resultType="com.lazy.offline.model.Resource">
+				SELECT
+				<include refid="column"/>
+				FROM CPSX_SYS_DIM_RESOURCE r
+				WHERE is_menu='y'
+				ORDER BY r.posorder ASC
+	</select>
+	
+	<select id="selectHasChildren" resultType="java.lang.Integer">
+				SELECT COUNT(1)
+				FROM CPSX_SYS_DIM_RESOURCE
+				WHERE parent_id=#{id}
+	</select>
+	
+	<update id="updateById">
+		UPDATE CPSX_SYS_DIM_RESOURCE 
+		SET
+			name=#{i.resourceName},
+			url=#{i.resourceUrl},
+			eng_name=#{i.engName},
+			is_menu=#{i.ismenu},
+			posorder=#{i.posorder},
+			parent_id=#{i.topid},
+			cls_name=#{i.clsname},
+			UPDATE_TIME=now()
+		WHERE id=#{id}
+	</update>
+	
+	<delete id="deleteById">
+		DELETE FROM CPSX_SYS_DIM_RESOURCE
+		WHERE id=#{id}
+	</delete>
+	
 	
 </mapper>

@@ -40,6 +40,4 @@
         </foreach>
 	</insert>
 	
-	
-	
 </mapper>

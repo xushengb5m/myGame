@@ -41,7 +41,7 @@ top.location = "${request.contextPath}/userLogout";
 <body>
 <!-- 顶部导航\\ -->
 <div class="topbar">
-	<a class="logo" href="/panel/"><h1>驴妈妈机票业务系统<small></small></h1></a>
+	<a class="logo" href="/panel/"><h1>XX业务系统<small></small></h1></a>
 	<p>操作员：<span>${(users.userName)!""} </span> [<a id="reLogin" class="B" href="javascript:void();" onclick="registerLogin()";>重新登陆</a>]　[
 	<a href="#" class="B" target="_self" onclick="exitLogin()">退出系统</a>]</p>
 </div>
@@ -52,18 +52,22 @@ top.location = "${request.contextPath}/userLogout";
 	<span id="oper_aside" class="icon-arrow-left"></span>
     <span id="oper_set" class="icon-set"></span>
 	<div class="aside_box">
+		<ul id="aside_list" class="aside_list ul_oper_list">
 		<#if Application.cpsx_menu_top??>
 			<#list Application.cpsx_menu_top as topMenu>
-				<ul class="ul_oper_list">
-	            	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/system/toResourceList"><span class="icon-tag_1"></span>${topMenu.resourceName}</a></li>
-	            </ul>
-				<ul id="aside_list" class="aside_list ul_oper_list">
+				<li class="oper_item"><a target="iframeMain" ><span class="icon-tag_2"></span>${topMenu.resourceName}</a>
 				<#if Application.cpsx_menu??>
-					<#list Application.cpsx_menu?keys as testKey>  
-							<li class="oper_item"><a target="iframeMain" href=""><span class="icon-tag_1"></span>${testKey}...${topMenu.id}</a></li>
+				<#assign map = Application.cpsx_menu>
+					<#list map?keys as testKey>  
+							<#if testKey==topMenu.id>
+								<ul class="ul_oper_list">
+								<#list map[testKey] as item>  
+					            	<li class="oper_item"><a target="iframeMain" href="${item.resourceUrl}"><span class="icon-tag_1"></span>${item.resourceName}</a></li>
+					            </#list>
+					            </ul>
+							</#if>
 					</#list>
 				</#if>
-				</ul>
 			</#list>
 		</#if>
 		
@@ -72,7 +76,6 @@ top.location = "${request.contextPath}/userLogout";
             	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/system/toResourceList"><span class="icon-tag_1"></span>资源管理</a></li>
             	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/system/toSysUserList"><span class="icon-tag_1"></span>用户管理</a></li>
             	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/system/toRoleList"><span class="icon-tag_1"></span>角色管理</a></li>
-            	<li class="oper_item"><a target="iframeMain" href="${request.contextPath}/system/toAccessList"><span class="icon-tag_1"></span>权限管理</a></li>
             </ul>
         </li>
 		</ul>

@@ -9,12 +9,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lazy.offline.dao.mapper.RoleMapper;
 import com.lazy.offline.dao.mapper.RoleResourceMapper;
 import com.lazy.offline.model.Role;
+import com.lazy.offline.model.User;
 import com.lazy.offline.model.base.BaseQueryDto;
 import com.lazy.offline.model.base.BaseResultDto;
 import com.lazy.offline.model.base.ErrorMessage;
@@ -78,6 +80,26 @@ public class RoleController {
 			}else{
 				em.setErrCode(ResultStatus.SUCCESS.name());
 			}
+		}
+		return em;
+	}
+	
+	@RequestMapping(value = "/queryRoleDetail/{id}")
+	public String querySysUserDetail(Model model, @PathVariable("id")int id) {
+		Role role= roleMapper.getById(id);
+		model.addAttribute("role", role);
+		return "/system/sys_role_update";
+	}
+	
+	@RequestMapping(value = "/updateRole/{id}")
+	@ResponseBody
+	private ErrorMessage updateRole(Role role,@PathVariable int id) {
+		ErrorMessage em = new ErrorMessage();
+		int updateSuccess = roleMapper.updateById(id, role);
+		if(updateSuccess>0){
+				em.setErrCode(ResultStatus.SUCCESS.name());
+		}else{
+				em.setErrCode(ResultStatus.FAIL.name());
 		}
 		return em;
 	}
