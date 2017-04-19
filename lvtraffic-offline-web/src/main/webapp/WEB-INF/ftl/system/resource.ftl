@@ -16,7 +16,7 @@
 			initTree();
 	    });    
 		
-		function initTree() {
+		function initTree(nodeId) {
 			$.ajax({
     			url : "${request.contextPath}/system/loadResourceData",
     			dataType:"json",
@@ -27,6 +27,9 @@
     					animate:true,
     					lines:true
     				});
+    				if(nodeId){
+    					expandTo(nodeId);
+    				}
     			} 
     		});
 		}
@@ -37,8 +40,8 @@
         function expandAll(){
             $('#menuTree').tree('expandAll');
         }
-        function expandTo(){
-            var node = $('#tt').tree('find',113);
+        function expandTo(id){
+            var node = $('#tt').tree('find',id);
             $('#menuTree').tree('expandTo', node.target).tree('select', node.target);
         }
         
@@ -85,7 +88,7 @@
     			success : function(data) {
     					if(data.errCode=="SUCCESS"){
 	    					$("#dlg").dialog("close");
-	    					initTree();
+	    					initTree($("#parentId").val());
     					}else{
     						alert("保存失败!");
     					}
@@ -108,14 +111,15 @@
 	    }
 	    
 	    function saveEditNode(){
+	    	var nodeId = $("#resourceId").text();
 	    	$.ajax({
-    			url : "${request.contextPath}/system/editResource/"+$("#resourceId").text(),
+    			url : "${request.contextPath}/system/editResource/"+nodeId,
     			data:getParams(),
     			type : "POST",
     			success : function(data) {
     					if(data.errCode=="SUCCESS"){
 	    					$("#dlg").dialog("close");
-	    					initTree();
+	    					initTree(nodeId);
     					}else{
     						alert("保存失败!");
     					}

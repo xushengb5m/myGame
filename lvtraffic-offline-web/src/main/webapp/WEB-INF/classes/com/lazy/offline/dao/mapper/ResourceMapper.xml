@@ -52,6 +52,7 @@
 				<include refid="column"/>
 				FROM CPSX_SYS_DIM_RESOURCE r
 				WHERE is_menu='y'
+				AND parent_id=0
 				ORDER BY r.posorder ASC
 	</select>
 	

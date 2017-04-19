@@ -1,17 +1,9 @@
 package com.lazy.offline.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.net.ssl.SSLEngineResult.Status;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,11 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lazy.offline.dao.mapper.RoleMapper;
 import com.lazy.offline.dao.mapper.RoleResourceMapper;
-import com.lazy.offline.model.Resource;
 import com.lazy.offline.model.Role;
 import com.lazy.offline.model.base.ErrorMessage;
 import com.lazy.offline.model.base.ResultStatus;
-import com.lazy.offline.utils.JSONMapper;
 
 @Controller
 @RequestMapping("system")

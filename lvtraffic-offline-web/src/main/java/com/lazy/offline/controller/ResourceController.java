@@ -11,11 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lazy.offline.dao.mapper.ResourceMapper;
+import com.lazy.offline.dao.mapper.RoleResourceMapper;
 import com.lazy.offline.model.Resource;
 import com.lazy.offline.model.base.ErrorMessage;
 import com.lazy.offline.model.base.ResultStatus;
@@ -27,9 +29,13 @@ public class ResourceController {
 	@Autowired
 	private ResourceMapper resourceMapper;
 	
-	@RequestMapping(value = "/toResourceList")
-	private String toResourceList(HttpServletRequest request,HttpServletResponse response) {
+	@Autowired
+	private RoleResourceMapper roleResourceMapper;
 	
+	@RequestMapping(value = "/toResourceList")
+	private String toResourceList(Model model,HttpServletRequest request,HttpServletResponse response) {
+		List<Resource> menus = resourceMapper.getAllMenus();
+		model.addAttribute("menus", menus);
 		return "system/resource";
 	}
 	
@@ -97,11 +103,18 @@ public class ResourceController {
 		ErrorMessage msg = new ErrorMessage();
 		int isHasChildren = resourceMapper.selectHasChildren(id);
 		if(isHasChildren==0){
-			int isSuccess = resourceMapper.deleteById(id);
-			if(isSuccess>0){
-				msg.setErrCode(ResultStatus.SUCCESS.name());
+			//是否有角色在使用该资源
+			int countRole = roleResourceMapper.selectUsingRoleCount(id);
+			if(countRole==0){
+				int isSuccess = resourceMapper.deleteById(id);
+				if(isSuccess>0){
+					msg.setErrCode(ResultStatus.SUCCESS.name());
+				}else{
+					msg.setErrCode(ResultStatus.FAIL.name());
+				}
 			}else{
 				msg.setErrCode(ResultStatus.FAIL.name());
+				msg.setMessage("该资源有角色在使用，不能删除!");
 			}
 		}else{
 			msg.setErrCode(ResultStatus.FAIL.name());

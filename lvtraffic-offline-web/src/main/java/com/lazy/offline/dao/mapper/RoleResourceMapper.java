@@ -2,7 +2,6 @@ package com.lazy.offline.dao.mapper;
 
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -20,5 +19,7 @@ public interface RoleResourceMapper extends BaseMapper<Role, BaseQueryDto<?>>{
 	int deleteRoleResourceByRoleId(@Param("roleId")int roleId);
 	
 	List<Resource> selectResourceByRoleId(@Param("roleId")int roleId);
+
+	int selectUsingRoleCount(@Param("id")int id);
 
 }

@@ -26,6 +26,12 @@
 				WHERE role_id=#{roleId}
 	</select>
 	
+	<select id="selectUsingRoleCount" resultType="java.lang.Integer">
+				SELECT COUNT(1)
+				FROM cpsx_sys_map_role_resource
+				WHERE resource_id=#{id}
+	</select>
+	
 	
 	<delete id="deleteRoleResourceByRoleId">
 				DELETE FROM cpsx_sys_map_role_resource

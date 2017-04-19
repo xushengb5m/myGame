@@ -123,7 +123,7 @@ public class LoginController {
 	}
 	
 	
-	@RequestMapping("/index")
+	@RequestMapping("/home")
 	public String index(HttpServletRequest request, HttpServletResponse response) {
 			return "index";
 	}
