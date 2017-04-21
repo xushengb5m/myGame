@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.lazy.offline.dao.mapper.RoleMapper;
 import com.lazy.offline.dao.mapper.RoleResourceMapper;
 import com.lazy.offline.model.Role;
-import com.lazy.offline.model.User;
 import com.lazy.offline.model.base.BaseQueryDto;
 import com.lazy.offline.model.base.BaseResultDto;
 import com.lazy.offline.model.base.ErrorMessage;

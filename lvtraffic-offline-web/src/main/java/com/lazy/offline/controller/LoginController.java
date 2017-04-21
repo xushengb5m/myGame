@@ -127,5 +127,10 @@ public class LoginController {
 	public String index(HttpServletRequest request, HttpServletResponse response) {
 			return "index";
 	}
+	
+	@RequestMapping("/noAccess")
+	public String noAccess(HttpServletRequest request, HttpServletResponse response) {
+			return "no_access";
+	}
 
 }

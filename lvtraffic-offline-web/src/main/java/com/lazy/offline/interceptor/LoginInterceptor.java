@@ -14,6 +14,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.lazy.offline.constant.CacheConstant;
 import com.lazy.offline.constant.CookieKeyConstant;
+import com.lazy.offline.constant.HttpAttributeKey;
 import com.lazy.offline.model.User;
 import com.lazy.offline.service.cache.CacheMapService;
 import com.lazy.offline.service.impl.InitDmpServiceImpl;
@@ -56,6 +57,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter implements Servl
 				String last_login_cookie = (String)cacheMapService.getCache(CacheConstant.USER_PREFIX + user.getId());
 				if (StringUtils.isNotBlank(last_login_cookie)
 						&& StringUtils.equalsIgnoreCase(last_login_cookie,cookie.getValue())) {
+					request.setAttribute(HttpAttributeKey.CPSX_USER_INFO,user);
 					
 					if (sc.getAttribute(CacheConstant.CPSX_MENU) == null
 							|| sc.getAttribute(CacheConstant.CPSX_MENU_TOP) == null) {

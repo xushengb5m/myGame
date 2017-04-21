@@ -25,10 +25,18 @@
 	<mvc:default-servlet-handler />
 	
 	<mvc:interceptors>
+		<!-- 登录拦截器 -->
 		<mvc:interceptor>
 			<mvc:mapping path="/home"/>
+			<mvc:mapping path="/system/*"/>
 			<bean id="loginInterceptor" class="com.lazy.offline.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
+		
+		<!-- 权限控制拦截器 -->
+		<!-- <mvc:interceptor>
+			<mvc:mapping path="/system/*"/>
+			<bean id="roleAccessInterceptor" class="com.lazy.offline.interceptor.RoleAccessInterceptor"></bean>
+		</mvc:interceptor> -->
 	</mvc:interceptors>
 	
 	<import resource="classpath*:applicationContext-play-game-freemarker-conf.xml"/>

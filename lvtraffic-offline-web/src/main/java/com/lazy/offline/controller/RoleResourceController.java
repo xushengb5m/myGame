@@ -62,6 +62,11 @@ public class RoleResourceController {
 				}
 		}else{
 			int deleteSuccess = roleResourceMapper.deleteRoleResourceByRoleId(roleId);
+			if(deleteSuccess>0){
+				em.setErrCode(ResultStatus.SUCCESS.name());
+			}else{
+				em.setErrCode(ResultStatus.FAIL.name());
+			}
 		}
 		return em;
 	}

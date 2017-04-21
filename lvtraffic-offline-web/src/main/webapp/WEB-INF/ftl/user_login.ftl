@@ -48,7 +48,7 @@ function checkUserLogin(){
 <body>
 	<div class="w800">
 		<div class="logo">
-			<a href="http://www.lvmama.com">驴妈妈旅游网</a>
+			<a href="http://www.lvmama.com">XX管理系统</a>
 		</div>
 		<p class="link_help">
 			<a href="">帮助中心</a>
@@ -78,7 +78,7 @@ function checkUserLogin(){
 		
 		<div class="foot">
 			<p>
-					<a href="http://lvmama.com">关于我们@驴妈妈旅游网</a> |
+					<a href="http://lvmama.com">关于XX管理系统</a> |
 					<a href="http://lvmama.com">联系我们</a>
 			</p>
 			<p>
